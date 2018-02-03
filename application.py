@@ -45,6 +45,12 @@ def index():
     mealsRows = db.execute("select * from  meals ") # todo update sql statment to add where conditions
     return render_template("index.html", meals = mealsRows)
 
+@app.route("/shopping", methods=["GET", "POST"])
+def shopping():
+    """shopping"""
+     if request.method == "POST":
+         if not request.form.get("username"):
+            return apology("must provide Total-price", 403)
 
 
 @app.route("/changePassword", methods=["GET", "POST"])
