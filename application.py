@@ -38,6 +38,25 @@ Session(app)
 db = SQL("sqlite:///kitchen.db")
 
 
+@app.route("/shopping", methods=["GET", "POST"])
+def shopping():
+    """shopping"""
+    if request.method == "POST":
+        if not request.form.get("price"):
+            return apology("must provide Total-price", 403)
+
+        Total = request.form.get("price")
+        Total_Paid = db.execute("INSERT INTO cost (amount) VALUES(:amount)",
+                          Total=request.form.get("price"))
+
+        return redirect("/")
+    else:
+         mealsRow = db.execute("""SELECT * FROM mealProcess, meals WHERE
+                                mealProcess.mealId = meals.id AND mealProcess.userId = :userid AND mealProcess.community = 4""",
+                                userid = session["user_id"]    )
+
+         return render_template("shopping.html", meals = mealsRow)
+
 
 @app.route("/")
 def index():
@@ -262,6 +281,28 @@ def addsug():
         return redirect("/")
     else:
         return render_template("addsug.html")
+
+@app.route("/addrecord", methods=["GET", "POST"])
+@login_required
+def addrecord():
+
+    if request.method == "POST":
+        mealName = request.form.get("material")
+        mealDes = request.form.get("quantity")
+        mealDate = request.form.get("unit")
+
+
+        suggestion = db.execute("INSERT INTO meals (name, description, date, userId) VALUES (:mName, :mDescription, :mDate ,:user_id)",
+                            mName=mealName, mDescription=mealDes, mDate=mealDate , user_id=session["user_id"]  )
+        username = db.execute("SELECT username FROM users WHERE id=:user_id;",
+                             user_id=session["user_id"])
+
+
+
+        return render_template("materialdetails.html",mealName=mealName,mealDes=mealDes,mealDate=mealDate,cook=username[0]['username'])
+    else:
+        return render_template("materialdetails.html")
+
 
 @app.route("/units", methods=["GET", "POST"])
 @login_required
