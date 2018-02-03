@@ -98,3 +98,13 @@ def changeUserCash(currentUserId, newCash):
     rows = db.execute("update  users set cash = :newCash where id = :userId",
                       newCash=newCash, userId=currentUserId)
     return rows
+
+def mealProcess(mealId, community, userID):
+    rows = db.execute("insert into  mealProcess (mealId, community, userId) values (:mealId, :community, :userId)",
+                      mealId=mealId, community=community ,userId=userID)
+    return rows
+
+
+
+
+

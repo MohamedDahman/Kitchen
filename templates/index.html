@@ -16,6 +16,7 @@
       <tr>
         <td>{{ meal.name }}</td>
         <td>{{ meal.date }}</td>
+
         <td>
           <form method="POST" action="/addHellper">
           <div class="form-group">
@@ -23,8 +24,27 @@
         </div>
         </form>
         </td>
+
+
+        <td>
+          <form method="POST" action="/addShopper">
+          <div class="form-group">
+            <button class="btn btn-primary"  name="addShopper" type="submit"  value={{meal.id}}>Shopper</button>
+        </div>
+        </form>
+        </td>
+
+        <td>
+          <form method="POST" action="/addCleaner">
+          <div class="form-group">
+            <button class="btn btn-primary"  name="addCleaner" type="submit"  value={{meal.id}}>Cleaner</button>
+        </div>
+        </form>
+        </td>
+
         <td><button class="btn btn-primary" type="submit" value={{meal.id}}>Shopper</button></td>
         <td><button class="btn btn-primary" type="submit" value={{meal.id}}>Cleaner</button></td>
+
       </tr>
     {% endfor %}
 

@@ -6,8 +6,8 @@ from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions
 from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import apology
-import cgi, cgitb
-from helpers import login_required,mealProcess
+
+from helpers import login_required
 from helpers import isUserExsist , getUserHash ,isPasswordFormated , changeUserHash
 from helpers import addUser
 
@@ -41,77 +41,10 @@ db = SQL("sqlite:///kitchen.db")
 
 @app.route("/")
 def index():
-    if session.get("user_id") is None:
-        return render_template("image.html")
-    else:
+    flash("WELCOME TO Nordbahnhale Kitchen");
+    mealsRows = db.execute("select * from  meals ") # todo update sql statment to add where conditions
+    return render_template("index.html", meals = mealsRows)
 
-        rowData = {}  # this is a dict
-        listRowData = []  # this is list
-
-        # in this function to get all shares with current price and put it in the list of dict
-        rows = db.execute("select * from  meals order by date")
-        currentRow = 0
-        while currentRow <= len(rows) - 1:
-            rowData = {}
-            rowData['name'] = rows[currentRow]["name"]
-            rowData['date'] = rows[currentRow]["date"]
-
-            listRowData.append(rowData)
-            currentRow = currentRow + 1
-
-        return render_template("index.html", meals = listRowData)
-
-@app.route("/shopping", methods=["GET", "POST"])
-def shopping():
-    """shopping"""
-    if request.method == "POST":
-        if not request.form.get("price"):
-            return apology("must provide Total-price", 403)
-
-        Total = request.form.get("price")
-        Total_Paid = db.execute("INSERT INTO cost (amount) VALUES(:amount)",
-                          Total=request.form.get("price"))
-
-        return redirect("/")
-    else:
-         mealsRow = db.execute("""SELECT * FROM mealProcess, meals WHERE
-                                mealProcess.mealId = meals.id AND mealProcess.userId = :userid AND mealProcess.community = 4""",
-                                userid = session["user_id"]    )
-
-         return render_template("shopping.html", meals = mealsRow)
-
-
-
-@app.route("/addHellper", methods=["GET", "POST"])
-@login_required
-def addCokker():
-    mealId = request.form.get("addHellper")
-    currentUserId = session["user_id"]
-    community = 2 # 	Cooker Helper
-    mealProcess(mealId, community, currentUserId)
-    return redirect("/")
-
-
-
-@app.route("/addShopper", methods=["GET", "POST"])
-@login_required
-def addShopper():
-    mealId = request.form.get("addShopper")
-    currentUserId = session["user_id"]
-    community = 4 # 	Cooker Helper
-    mealProcess(mealId, community, currentUserId)
-    return redirect("/")
-
-
-
-@app.route("/addCleaner", methods=["GET", "POST"])
-@login_required
-def addCleaner():
-    mealId = request.form.get("addCleaner")
-    currentUserId = session["user_id"]
-    community = 3 # 	Cooker Helper
-    mealProcess(mealId, community, currentUserId)
-    return redirect("/")
 
 
 @app.route("/changePassword", methods=["GET", "POST"])
@@ -243,35 +176,12 @@ def addsug():
 
         suggestion = db.execute("INSERT INTO meals (name, description, date, userId) VALUES (:mName, :mDescription, :mDate ,:user_id)",
                             mName=mealName, mDescription=mealDes, mDate=mealDate , user_id=session["user_id"]  )
-        username = db.execute("SELECT username FROM users WHERE id=:user_id;",
-                             user_id=session["user_id"])
 
 
 
-        return render_template("materialdetails.html",mealName=mealName,mealDes=mealDes,mealDate=mealDate,cook=username[0]['username'])
+        return redirect("/")
     else:
-        return render_template("addsug.html")
-
-@app.route("/addrecord", methods=["GET", "POST"])
-@login_required
-def addrecord():
-
-    if request.method == "POST":
-        mealName = request.form.get("material")
-        mealDes = request.form.get("quantity")
-        mealDate = request.form.get("unit")
-
-
-        suggestion = db.execute("INSERT INTO meals (name, description, date, userId) VALUES (:mName, :mDescription, :mDate ,:user_id)",
-                            mName=mealName, mDescription=mealDes, mDate=mealDate , user_id=session["user_id"]  )
-        username = db.execute("SELECT username FROM users WHERE id=:user_id;",
-                             user_id=session["user_id"])
-
-
-
-        return render_template("materialdetails.html",mealName=mealName,mealDes=mealDes,mealDate=mealDate,cook=username[0]['username'])
-    else:
-        return render_template("materialdetails.html")
+        return render_templa("addsug.html")
 
 @app.route("/units", methods=["GET", "POST"])
 @login_required
