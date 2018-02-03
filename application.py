@@ -165,6 +165,23 @@ def register():
         return render_template("register.html")
 
 
+@app.route("/addsug", methods=["GET", "POST"])
+@login_required
+def addsug():
+
+    if request.method == "POST":
+        mealName = request.form.get("name")
+        mealDes = request.form.get("description")
+        mealDate = request.form.get("date")
+
+        suggestion = db.execute("INSERT INTO meals (name, description, date, userId) VALUES (:mName, :mDescription, :mDate ,:user_id)",
+                            mName=mealName, mDescription=mealDes, mDate=mealDate , user_id=session["user_id"]  )
+
+
+
+        return redirect("/")
+    else:
+        return render_template("addsug.html")
 
 def errorhandler(e):
     """Handle error"""
