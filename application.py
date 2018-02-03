@@ -6,7 +6,7 @@ from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions
 from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import apology
-
+import cgi, cgitb
 from helpers import login_required
 from helpers import isUserExsist , getUserHash ,isPasswordFormated , changeUserHash
 from helpers import addUser
@@ -51,6 +51,15 @@ def shopping():
      if request.method == "POST":
          if not request.form.get("username"):
             return apology("must provide Total-price", 403)
+
+
+@app.route("/addHellper", methods=["GET", "POST"])
+def addCokker():
+    mealId = request.form.get("addHellper")
+
+    return render_template("changePassword.html")
+
+
 
 
 @app.route("/changePassword", methods=["GET", "POST"])
