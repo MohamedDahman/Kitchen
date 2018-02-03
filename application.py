@@ -7,7 +7,7 @@ from werkzeug.exceptions import default_exceptions
 from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import apology
 import cgi, cgitb
-from helpers import login_required
+from helpers import login_required,mealProcess
 from helpers import isUserExsist , getUserHash ,isPasswordFormated , changeUserHash
 from helpers import addUser
 
@@ -41,19 +41,58 @@ db = SQL("sqlite:///kitchen.db")
 
 @app.route("/")
 def index():
-    flash("WELCOME TO Nordbahnhale Kitchen");
-    mealsRows = db.execute("select * from  meals ") # todo update sql statment to add where conditions
-    return render_template("index.html", meals = mealsRows)
+    if session.get("user_id") is None:
+        return render_template("image.html")
+    else:
+
+        rowData = {}  # this is a dict
+        listRowData = []  # this is list
+
+        # in this function to get all shares with current price and put it in the list of dict
+        rows = db.execute("select * from  meals order by date")
+        currentRow = 0
+        while currentRow <= len(rows) - 1:
+            rowData = {}
+            rowData['name'] = rows[currentRow]["name"]
+            rowData['date'] = rows[currentRow]["date"]
+
+            listRowData.append(rowData)
+            currentRow = currentRow + 1
+
+        return render_template("index.html", meals = listRowData)
 
 
 
 @app.route("/addHellper", methods=["GET", "POST"])
+@login_required
 def addCokker():
     mealId = request.form.get("addHellper")
+    currentUserId = session["user_id"]
+    community = 2 # 	Cooker Helper
+    mealProcess(mealId, community, currentUserId)
+    return redirect("/")
 
-    return render_template("changePassword.html")
 
 
+@app.route("/addShopper", methods=["GET", "POST"])
+@login_required
+def addShopper():
+    mealId = request.form.get("addShopper")
+    currentUserId = session["user_id"]
+    community = 4 # 	Cooker Helper
+    mealProcess(mealId, community, currentUserId)
+    return redirect("/")
+
+
+
+@app.route("/addCleaner", methods=["GET", "POST"])
+@login_required
+def addCleaner():
+    mealId = request.form.get("addCleaner")
+    currentUserId = session["user_id"]
+    community = 3 # 	Cooker Helper
+    mealProcess(mealId, community, currentUserId)
+    return redirect("/")
 
 
 @app.route("/changePassword", methods=["GET", "POST"])
