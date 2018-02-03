@@ -56,6 +56,38 @@ def index():
             rowData['name'] = rows[currentRow]["name"]
             rowData['date'] = rows[currentRow]["date"]
 
+
+            helper = db.execute("select count(*) as Counts,userId as helper from  mealProcess where community =2 and mealId = :mealId group by userId",
+                               mealId=rows[currentRow]["id"])
+            if len(helper) == 1:
+                    users = db.execute("select userName from  users where id = :userid",
+                                userid=helper[0]["helper"])
+                    rowData['helper'] = users[0]["username"]
+            else:
+                    rowData['helper'] =0
+
+
+
+            Shopper = db.execute("select count(*) as Counts,userId as helper from  mealProcess where community =4 and mealId = :mealId group by userId",
+                               mealId=rows[currentRow]["id"])
+            if len(Shopper) == 1:
+                    users = db.execute("select userName from  users where id = :userid",
+                                userid=Shopper[0]["helper"])
+                    rowData['Shopper'] = users[0]["username"]
+            else:
+                    rowData['Shopper'] =0
+
+
+            Cleaner = db.execute("select count(*) as Counts,userId as helper from  mealProcess where community =3 and mealId = :mealId group by userId",
+                               mealId=rows[currentRow]["id"])
+            if len(Cleaner) == 1:
+                    users = db.execute("select userName from  users where id = :userid",
+                                userid=Cleaner[0]["helper"])
+                    rowData['Cleaner'] = users[0]["username"]
+            else:
+                    rowData['Cleaner'] =0
+
+
             listRowData.append(rowData)
             currentRow = currentRow + 1
 
