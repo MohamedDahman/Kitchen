@@ -12,6 +12,8 @@ from flask import redirect, render_template, request, session
 from functools import wraps
 
 
+# Configure CS50 Library to use SQLite database
+db = SQL("sqlite:///kitchen.db")
 
 def login_required(f):
     """
@@ -67,7 +69,6 @@ def addUser(userName, userPassword):
     return 0
 
 def isPasswordFormated(password):
-
     if len(password)<7:
         return False
 
@@ -81,8 +82,7 @@ def isPasswordFormated(password):
                 thereAreUpperCase = 1
         if onechar.islower():
                 thereAreLowerCase = 1
-
-    if thereAreNum == 0 or thereAreUpperCase == 0 or thereAreLowerCase == 0 :
+    if thereAreNum == 1 or thereAreUpperCase == 1 or thereAreLowerCase == 1 :
         return True
     else:
         return False
@@ -93,3 +93,8 @@ def getUserHash(currentUserId):
                       userId=currentUserId)
     userHash = rows[0]["hash"]
     return userHash
+
+def changeUserCash(currentUserId, newCash):
+    rows = db.execute("update  users set cash = :newCash where id = :userId",
+                      newCash=newCash, userId=currentUserId)
+    return rows

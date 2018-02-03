@@ -8,7 +8,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import apology
 
 from helpers import login_required
-from helpers import isUserExsist , getUserHash ,isPasswordFormated
+from helpers import isUserExsist , getUserHash ,isPasswordFormated , changeUserHash
 from helpers import addUser
 
 
@@ -41,8 +41,10 @@ db = SQL("sqlite:///kitchen.db")
 
 @app.route("/")
 def index():
-        flash("WELCOME TO Nordbahnhale Kitchen");
-        return render_template("index.html")
+    flash("WELCOME TO Nordbahnhale Kitchen");
+    mealsRows = db.execute("select * from  meals ") # todo update sql statment to add where conditions
+    return render_template("index.html", meals = mealsRows)
+
 
 
 @app.route("/changePassword", methods=["GET", "POST"])

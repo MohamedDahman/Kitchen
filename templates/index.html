@@ -5,14 +5,20 @@
 {% endblock %}
 
 {% block main %}
+
     <table class="table table-striped" style="width:100%">
-
       <tr>
-        <th>Meal Name </th>
-        <th>meal Desc</th>
+        <th>Name</th>
+        <th>Date</th>
       </tr>
-
+    {% for meal in meals %}
+      <tr>
+        <td>{{ meal.name }}</td>
+        <td>{{ meal.date }}</td>
+      </tr>
+    {% endfor %}
 
     </table>
+
 
 {% endblock %}
