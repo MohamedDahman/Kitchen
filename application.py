@@ -38,6 +38,25 @@ Session(app)
 db = SQL("sqlite:///kitchen.db")
 
 
+@app.route("/shopping", methods=["GET", "POST"])
+def shopping():
+    """shopping"""
+    if request.method == "POST":
+        if not request.form.get("price"):
+            return apology("must provide Total-price", 403)
+
+        Total = request.form.get("price")
+        Total_Paid = db.execute("INSERT INTO cost (amount) VALUES(:amount)",
+                          Total=request.form.get("price"))
+
+        return redirect("/")
+    else:
+         mealsRow = db.execute("""SELECT * FROM mealProcess, meals WHERE
+                                mealProcess.mealId = meals.id AND mealProcess.userId = :userid AND mealProcess.community = 4""",
+                                userid = session["user_id"]    )
+
+         return render_template("shopping.html", meals = mealsRow)
+
 
 @app.route("/")
 def index():
