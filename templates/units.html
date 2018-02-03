@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Units
+{% endblock %}
+
+{% block main %}
+    <form action="/units" method="post">
+        <div class="form-group">
+            <input autocomplete="on" autofocus class="form-control" name="description" placeholder="Units" type="text"/>
+        </div>
+        <button class="btn btn-primary" type="submit">Add</button>
+    </form>
+{% endblock %}
+
+
+

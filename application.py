@@ -183,6 +183,31 @@ def addsug():
     else:
         return render_template("addsug.html")
 
+@app.route("/units", methods=["GET", "POST"])
+@login_required
+def units():
+    """Get stock quote."""
+
+    # User reached route via POST (as by submitting a form via POST)
+    if request.method == "POST":
+
+        units = request.form.get("description")
+
+        # Ensure units were entered
+        if not units:
+            return apology("must provide valid units", 400)
+
+        # Insert the units into units table
+        db.execute("INSERT INTO units (description) VALUES (:description)",
+                   description=units)
+
+        # Render template and pass data to quoted result page
+        return render_template("/units.html")
+
+    # User reached route via GET (as by clicking a link or via redirect)
+    else:
+        return render_template("units.html")
+
 def errorhandler(e):
     """Handle error"""
     return apology(e.name, e.code)
