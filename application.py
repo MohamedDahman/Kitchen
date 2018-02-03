@@ -61,6 +61,12 @@ def index():
 
         return render_template("index.html", meals = listRowData)
 
+@app.route("/shopping", methods=["GET", "POST"])
+def shopping():
+    """shopping"""
+     if request.method == "POST":
+         if not request.form.get("username"):
+            return apology("must provide Total-price", 403)
 
 
 @app.route("/addHellper", methods=["GET", "POST"])
