@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block title %}
+    shopping
+{% endblock %}
+{% block main %}
+    <table class="table table-striped" style="width:100%">
+      <tr>
+        <th>Name</th>
+        <th>Date</th>
+        <th colspan=2>Actions</th>
+      </tr>
+    {% for meal in meals %}
+      <tr>
+        <td>{{ meal.name }}</td>
+        <td>{{ meal.date }}</td>
+        <td><input class="form-control" name="price" placeholder="price $" type="number"/>  </td>
+        <td><button class="btn btn-primary" type="submit" value={{meal.id}}>Ok</button></td>
+      </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
