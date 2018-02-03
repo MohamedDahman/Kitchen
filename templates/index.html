@@ -10,11 +10,23 @@
       <tr>
         <th>Name</th>
         <th>Date</th>
+        <th colspan=3>Actions</th>
       </tr>
     {% for meal in meals %}
       <tr>
         <td>{{ meal.name }}</td>
         <td>{{ meal.date }}</td>
+        <td>
+          <form method="POST" action="/dellist1{{meal.id}}">
+          <div class="form-group">
+            <button class="btn btn-primary" value="dellToList" name="dellToList" type="submit"  value={{meal.id}}>Helper</button>
+        </div>
+        </form>
+        </td>
+
+
+        <td><button class="btn btn-primary" type="submit" value={{meal.id}}>Shopper</button></td>
+        <td><button class="btn btn-primary" type="submit" value={{meal.id}}>Cleaner</button></td>
       </tr>
     {% endfor %}
 
