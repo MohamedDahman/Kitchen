@@ -8,37 +8,47 @@
 
     <table class="table table-striped" style="width:100%">
       <tr>
-        <th >Name</th>
-        <th >Date</th>
-        <th colspan=3>Actions</th>
-      </tr>
-      <tr>
-        <th ></th>
-        <th ></th>
+        <th>Data</th>
         <th>Helper</th>
         <th>Shopper</th>
         <th>Cleaner</th>
+        <th>Participate</th>
+
+        <th></th>
       </tr>
 
     {% for meal in meals %}
       <tr>
-        <td>{{ meal.name }}</td>
-        <td>{{ meal.date }}</td>
-
+        <td>
+        <table >
+          <tr >
+            <td>Name</td>
+            <td>{{ meal.name }}</td>
+          </tr>
+          <tr>
+            <td>Date</td>
+            <td width="180">{{ meal.date }}</td>
+          </tr>
+          <tr>
+          <td width=180>Participants</td>
+          <td>{{meal.ParticipateCount}}</td>
+          </tr>
+          </td>
+          </table >
          {% if meal.helper == 0 %}
-        <td>
-          <form method="POST" action="/addHellper">
-          <div class="form-group">
+          <td>
+            <form method="POST" action="/addHellper">
+            <div class="form-group">
             <button class="btn btn-primary"  name="addHellper" type="submit"  value={{meal.id}}>Helper</button>
-        </div>
-        </form>
-        </td>
-        {% else %}
-        <td>
-          {{meal.helper}}
-        </td>
+            </div>
+            </form>
+          </td>
+          {% else %}
+            <td>
+                {{meal.helper}}
+            </td>
 
-        {% endif %}
+          {% endif %}
 
 
 
@@ -47,7 +57,7 @@
         <td>
           <form method="POST" action="/addShopper">
           <div class="form-group">
-            <button class="btn btn-primary"  name="addShopper" type="submit"  value={{meal.id}}>Shopper</button>
+            <button class="btn btn-primary"  name="addShopper" value={{meal.id}} type="submit" >Shopper</button>
         </div>
         </form>
         </td>
@@ -75,6 +85,27 @@
 
         {% endif %}
 
+
+
+         {% if meal.Participate == 0 %}
+        <td>
+          <form method="POST" action="/addParticipate">
+          <div class="form-group">
+            <button class="btn btn-primary"  name="addParticipate" type="submit"  value={{meal.id}}>Participate</button>
+        </div>
+        </form>
+        </td>
+        {% else %}
+        <td>
+          {{meal.Participate}}
+        </td>
+
+        {% endif %}
+
+
+        <td>
+            <img src="/static/{{meal.id}}.jpg"  alt="{{image}}" style="width:150px; height:150px">
+        </td>
 
       </tr>
     {% endfor %}

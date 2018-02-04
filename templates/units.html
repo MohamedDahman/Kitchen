@@ -8,10 +8,38 @@
     <form action="/units" method="post">
         <div class="form-group">
             <input autocomplete="on" autofocus class="form-control" name="description" placeholder="Units" type="text"/>
+            <button class="btn btn-primary" type="submit">Add</button>
         </div>
-        <button class="btn btn-primary" type="submit">Add</button>
+
     </form>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Units</th>
+                <th colspan=2>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in units %}
+            <tr>
+                <form method="POST" action="/editUnit">
+                <td><input autocomplete="on" autofocus class="form-control" name="description_details" value={{data.description}} placeholder="Units" type="text"/></td>
+                <td>
+                        <div class="form-group">
+                            <button class="btn btn-primary" name="editUnit" type="submit" value={{data.id}}>Edit</button>
+                        </div>
+
+                </td>
+                </form>
+                <td>
+                    <form method="POST" action="/deleteUnit">
+                        <div class="form-group">
+                            <button class="btn btn-primary"  name="deleteUnit" type="submit" value={{data.id}}>Delete</button>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
-
-
-
