@@ -1,12 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US" xml:lang="en">
+	<head>
+		<!--  Created by Artisteer v3.0.0.32906  Base template (without user's data) checked by http://validator.w3.org : "This page is valid XHTML 1.0 Transitional"  -->
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<html lang="en">
-
-    <head>
-
-        <!-- Required meta tags -->
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
         <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 
@@ -19,83 +16,32 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 
-        <title>Refugees Code Kitchen: {% block title %}{% endblock %}</title>
 
-    </head>
+		<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+		<title>where are you going</title>
+		<link rel="stylesheet" href="././static/style.css" type="text/css" media="screen" />
+		<!--[if IE 6]><link rel="stylesheet" href="./style.ie6.css" type="text/css" media="screen" /><![endif]-->
+		<!--[if IE 7]><link rel="stylesheet" href="./style.ie7.css" type="text/css" media="screen" /><![endif]-->
+		<script type="text/javascript" src="./static/jquery.js"></script>
+		<script type="text/javascript" src="./static/script.js"></script>
+	</head>
 
-    <body>
+	<body>
+		<div id="art-page-background-glare">
+			<div id="art-page-background-glare-image">
+				<div id="art-main">
+					<div class="art-sheet">
 
-        <nav class="navbar navbar-expand-md navbar-light bg-light border">
-            <a class="navbar-brand" href="/"><span class="red">Kitchen Services</span></a>
-            <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbar" data-toggle="collapse" type="button">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbar">
-                {% if session.user_id %}
-                    <ul class="navbar-nav mr-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="/addsug">Suggestion</a></li>
-
-                        <li class="nav-item"><a class="nav-link" href="/shopping">Shopping</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/units">Units</a></li>
-                    </ul>
-                    <ul class="navbar-nav ml-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="/changePassword">Change Password</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
-                    </ul>
-
-                {% else %}
-                    <ul class="navbar-nav ml-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
-                        <li class="nav-item"> <button class="btn btn-primary" type="submit" onclick="document.getElementById('id01').style.display='block'" class="w3-btn w3-blue w3-small">Log in</button>
-                        </li>
-                    </ul>
-                {% endif %}
+					</div>
+					<p class="art-page-footer"> <a href="http://www.tworzenie-stron-internetowych.biz.pl/"></a>.</p>
+				</div>
+			</div>
+		</div>
 
 
-            </div>
-        </nav>
-
-        {% if get_flashed_messages() %}
-            <header>
-                <div class="alert alert-primary border text-center" role="alert">
-                    {{ get_flashed_messages() | join(" ") }}
-                </div>
-            </header>
-        {% endif %}
-
-        <main class="container p-5">
+		 <main >
             {% block main %}{% endblock %}
         </main>
 
-
-
-
-    <div id="id01" class="w3-modal">
-    <div class="w3-modal-content w3-card-8 w3-animate-zoom" style="max-width:600px">
-      <div class="w3-center"><br>
-        <span onclick="document.getElementById('id01').style.display='none'" class="w3-closebtn w3-hover-red w3-container w3-padding-8 w3-display-topright" title="Close Modal">&times;</span>
-        <img src="/static/img1.png" alt="user" style="width:30%" class="w3-circle w3-margin-top">
-      </div>
-
-      <form class="w3-container" method="POST" action="/login">
-
-          <label><b>Username</b></label>
-          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Username" name="username" required>
-          <label><b>Password</b></label>
-          <input class="w3-input w3-border" type="password" placeholder="Enter Password" name="password" required>
-          <button class="w3-btn-block w3-blue w3-section" type="submit">Login</button>
-          <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-btn-block w3-blue w3-section w3-padding">Cancel</button>
-      </form>
-
-
-    </div>
-  </div>
-
-
-
-
-
-
-    </body>
-
+	</body>
 </html>

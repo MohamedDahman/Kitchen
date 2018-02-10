@@ -1,45 +1,66 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Units
+    index
 {% endblock %}
 
 {% block main %}
-    <form action="/units" method="post">
+<div id="art-main">
+ 					<div class="art-sheet">
+						<div class="art-sheet-tl"></div>
+						<div class="art-sheet-tr"></div>
+						<div class="art-sheet-bl"></div>
+						<div class="art-sheet-br"></div>
+						<div class="art-sheet-tc"></div>
+						<div class="art-sheet-bc"></div>
+						<div class="art-sheet-cl"></div>
+						<div class="art-sheet-cr"></div>
+						<div class="art-sheet-cc"></div>
+						<div class="art-sheet-body">
+							<div class="art-nav">
+
+        <form action="/" method="post">
+      <br>
+      <br>
+       <table>
+      <tr>
+       <td>
         <div class="form-group">
-            <input autocomplete="on" autofocus class="form-control" name="description" placeholder="Units" type="text"/>
-            <button class="btn btn-primary" type="submit">Add</button>
+            <input class="form-control" name="shares" min="1" placeholder="User Name" type="text"/>
         </div>
+          </td>
+
+
+          <td rowspan=2>
+          <div class="art-vmenublockcontent">
+										<div class="art-vmenublockcontent-body">
+											<ul class="art-vmenu">
+															  <a href="./home.html" class="active"><span class="l"> </span><span class="r"> </span><span class="t">login</span></a>
+          </ul>
+
+
+
+        </tr>
+        <tr>
+
+         <td>
+              <div class="form-group">
+            <input class="form-control" name="shares" min="1" placeholder="Password" type="text"/>
+           </div>
+
+         </td>
+
+        </tr>
+
+       </table>
+
+        <br>
+
 
     </form>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Units</th>
-                <th colspan=2>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for data in units %}
-            <tr>
-                <form method="POST" action="/editUnit">
-                <td><input autocomplete="on" autofocus class="form-control" name="description_details" value={{data.description}} placeholder="Units" type="text"/></td>
-                <td>
-                        <div class="form-group">
-                            <button class="btn btn-primary" name="editUnit" type="submit" value={{data.id}}>Edit</button>
-                        </div>
+   </div >
+   </div >
 
-                </td>
-                </form>
-                <td>
-                    <form method="POST" action="/deleteUnit">
-                        <div class="form-group">
-                            <button class="btn btn-primary"  name="deleteUnit" type="submit" value={{data.id}}>Delete</button>
-                        </div>
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+
+   </div >
 {% endblock %}

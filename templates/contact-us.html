@@ -3,18 +3,17 @@
 	<head>
 		<!--  Created by Artisteer v3.0.0.32906  Base template (without user's data) checked by http://validator.w3.org : "This page is valid XHTML 1.0 Transitional"  -->
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>Home</title>
-		<link rel="stylesheet" href="./static/style.css" type="text/css" media="screen" />
+		<title>Contact us</title>
+		<link rel="stylesheet" href="./style.css" type="text/css" media="screen" />
 		<!--[if IE 6]><link rel="stylesheet" href="./style.ie6.css" type="text/css" media="screen" /><![endif]-->
 		<!--[if IE 7]><link rel="stylesheet" href="./style.ie7.css" type="text/css" media="screen" /><![endif]-->
-		<script type="text/javascript" src="./static/jquery.js"></script>
-		<script type="text/javascript" src="./static/script.js"></script>
+		<script type="text/javascript" src="./jquery.js"></script>
+		<script type="text/javascript" src="./script.js"></script>
 	</head>
 	<body>
 		<div id="art-page-background-glare">
 			<div id="art-page-background-glare-image">
 				<div id="art-main">
-
 					<div class="art-sheet">
 						<div class="art-sheet-tl"></div>
 						<div class="art-sheet-tr"></div>
@@ -30,19 +29,12 @@
 								<div class="l"></div>
 								<div class="r"></div>
 								<ul class="art-menu">
-									{% if session.user_id %}
-									<li><a href="./index.html" class="active"><span class="l"> </span><span class="r"> </span><span class="t">Home</span></a></li>
+									<li><a href="./home.html"><span class="l"> </span><span class="r"> </span><span class="t">Home</span></a></li>
 									<li><a href="./Suggesions.html"><span class="l"> </span><span class="r"> </span><span class="t">Suggesions</span></a></li>
-									<li><a href="/units"><span class="l"> </span><span class="r"> </span><span class="t">Shopper</span></a></li>
-									<li><a href="/units"><span class="l"> </span><span class="r"> </span><span class="t">History</span></a></li>
+									<li><a href="./Units.html"><span class="l"> </span><span class="r"> </span><span class="t">Units</span></a></li>
 									<li><a href="./about-us.html"><span class="l"> </span><span class="r"> </span><span class="t">About us</span></a></li>
-									<li><a href="./contact-us.html"><span class="l"> </span><span class="r"> </span><span class="t">Contact us</span></a></li>
+									<li><a href="./contact-us.html" class="active"><span class="l"> </span><span class="r"> </span><span class="t">Contact us</span></a></li>
                                     <li><a href="./contact-us.html" class="active"><span class="l"> </span><span class="r"> </span><span class="t">Log out</span></a></li>
-                                    {% else %}
-										<li><a href="/login"><span class="l"> </span><span class="r"> </span><span class="t">Log in</span></a></li>
-										<li><a href="/units"><span class="l"> </span><span class="r"> </span><span class="t">Register</span></a></li>
-                                    {% endif %}
-
 								</ul>
 							</div>
 							<div class="art-header">
@@ -50,8 +42,8 @@
 									<div class="art-header-jpeg"></div>
 								</div>
 								<div class="art-logo">
-									<h1 id="name-text" class="art-logo-name"><a href="./index.html">Refugees {code}</a></h1>
-									<h2 id="slogan-text" class="art-logo-text">Nordbahnhale Intake#3</h2>
+									<h1 id="name-text" class="art-logo-name"><a href="./index.html">Company name</a></h1>
+									<h2 id="slogan-text" class="art-logo-text">your commercial slogan</h2>
 								</div>
 							</div>
 							<div class="art-content-layout">
@@ -62,17 +54,14 @@
 												<div class="art-vmenublockheader">
 													<h3 class="t">Vertical Menu</h3>
 												</div>
-
 												<div class="art-vmenublockcontent">
 													<div class="art-vmenublockcontent-body">
 														<ul class="art-vmenu">
-															<li><a href="./home.html" class="active"><span class="l"> </span><span class="r"> </span><span class="t">Home</span></a></li>
-															<li><a href="./Suggesion.html"><span class="l"> </span><span class="r"> </span><span class="t">Suggesion</span></a></li>
-															<li><a href="./units.html"><span class="l"> </span><span class="r"> </span><span class="t">Shopper</span></a></li>
-															<li><a href="./units.html"><span class="l"> </span><span class="r"> </span><span class="t">History</span></a></li>
+															<li><a href="./home.html"><span class="l"> </span><span class="r"> </span><span class="t">Home</span></a></li>
+															<li><a href="./Suggesions.html"><span class="l"> </span><span class="r"> </span><span class="t">Suggesions</span></a></li>
+															<li><a href="./Units.html"><span class="l"> </span><span class="r"> </span><span class="t">Units</span></a></li>
 															<li><a href="./about-us.html"><span class="l"> </span><span class="r"> </span><span class="t">About us</span></a></li>
-															<li><a href="./contact-us.html"><span class="l"> </span><span class="r"> </span><span class="t">Contact us</span></a></li>
-
+															<li><a href="./contact-us.html" class="active"><span class="l"> </span><span class="r"> </span><span class="t">Contact us</span></a></li>
 														</ul>
 														<div class="cleared"></div>
 													</div>
@@ -80,7 +69,31 @@
 												<div class="cleared"></div>
 											</div>
 										</div>
-
+										<div class="art-block">
+											<div class="art-block-body">
+												<div class="art-blockcontent">
+													<div class="art-blockcontent-body">
+														<p>Enter Block content here...</p>
+														<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam pharetra, tellus sit amet congue vulputate, nisi erat iaculis nibh, vitae feugiat sapien ante eget mauris. </p>
+														<div class="cleared"></div>
+													</div>
+												</div>
+												<div class="cleared"></div>
+											</div>
+										</div>
+										<div class="art-block">
+											<div class="art-block-body">
+												<div class="art-blockcontent">
+													<div class="art-blockcontent-body">
+														<div>
+															<form method="get" name="searchform" action="#" enctype="application/x-www-form-urlencoded"><input type="text" value="" name="s" style="width: 95%;"></input>   <span class="art-button-wrapper"><span class="art-button-l"> </span><span class="art-button-r"> </span><a class="art-button" href="javascript:void(0)">Search</a></span>   </form>
+														</div>
+														<div class="cleared"></div>
+													</div>
+												</div>
+												<div class="cleared"></div>
+											</div>
+										</div>
 										<div class="cleared"></div>
 									</div>
 									<div class="art-layout-cell art-content">
@@ -88,16 +101,15 @@
 											<div class="art-post-cc"></div>
 											<div class="art-post-body">
 												<div class="art-post-inner art-article">
-													<h2 class="art-postheader">Home</h2>
+													<h2 class="art-postheader">Contact us</h2>
 													<div class="art-postcontent">
-														<h2><span style="font-size: 16px;"><span style="color: rgb(255, 255, 255);"> </span></span><span style="text-transform: none; "><span style="font-size: 16px;"><span style="color: rgb(255, 255, 255);">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed massa purus, non tincidunt ante. Morbi laoreet nunc a odio adipiscing eleifend. Suspendisse egestas feugiat lectus, id iaculis mauris suscipit vel. Nullam vel orci id nulla scelerisque venenatis. </span></span></span></h2>
-														<p><span style="text-transform: none; "><span style="font-size: 16px;"><span style="color: rgb(255, 255, 255);"><br /></span></span></span></p>
-														<p><span style="font-size: 14px;">Phasellus rutrum, lacus nec iaculis imperdiet, risus ligula volutpat turpis, quis pharetra erat nibh ut elit. Phasellus eu vulputate odio. Maecenas posuere congue ipsum et tristique. </span></p>
-														<p><span style="font-size: 14px;"><br /></span></p>
-														<p><span style="font-size: 14px;">Sed varius libero at ligula ornare bibendum. Aliquam non nunc est, eget commodo mi. Mauris porta, nulla sit amet mollis pharetra, sem mauris cursus dui, at laoreet ipsum justo sed turpis. </span></p>
-														<p><span style="font-size: 14px;"><br /></span></p>
-														<p><span style="font-size: 14px;">Vestibulum rhoncu</span><span style="font-size: 14px;">s egestas odio in varius. Vestibulum tempor, nisi sed ullamcorper porta, nunc diam euismod mauris, nec egestas quam lectus ut felis. Pellentesque tellus urna, faucibus ut volutpat non, tempor nec justo. </span><span style="color: rgb(247, 247, 247); font-family: Arial, Helvetica, sans-serif; "><span style="font-size: 14px;"> luctus et euismod vel, posuere in </span></span></p>
-														<p><span style="color: rgb(247, 247, 247); font-family: Arial, Helvetica, sans-serif; "><span style="font-size: 14px;"><br /></span></span></p>
+														<h1 style="font-size: 28px; ">123 456 789</h1>
+														<h1 style="font-size: 28px; "><span style="color: rgb(188, 188, 188); font-family: Tahoma, Arial, Helvetica, sans-serif; font-weight: normal; font-size: 14px; ">ADRES</span></h1>
+														<h1 style="font-size: 28px; "><span style="color: rgb(188, 188, 188); font-family: Tahoma, Arial, Helvetica, sans-serif; font-weight: normal; font-size: 14px; ">ADRES</span></h1>
+														<h1 style="font-size: 28px; "><span style="color: rgb(188, 188, 188); font-family: Tahoma, Arial, Helvetica, sans-serif; font-weight: normal; font-size: 14px; ">EMAIL</span></h1>
+														<h1 style="font-size: 28px; "><span style="color: rgb(188, 188, 188); font-family: Tahoma, Arial, Helvetica, sans-serif; font-weight: normal; font-size: 14px; "><br /></span></h1>
+														<p><span style="color: rgb(188, 188, 188); font-family: Tahoma, Arial, Helvetica, sans-serif; "><span style="font-size: 11px; "><span style="font-style: italic; ">Fusce consequat eros vitae urna mattis ut sollicitudin magna rutrum. </span></span></span></p>
+														<p><span style="color: rgb(188, 188, 188); font-family: Tahoma, Arial, Helvetica, sans-serif; "><span style="font-size: 11px; "><span style="font-style: italic; ">Donec dolor nibh, sodales ut dapibus sit amet, eleifend vitae erat. </span></span></span></p>
 													</div>
 													<div class="cleared"></div>
 												</div>
