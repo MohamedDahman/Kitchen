@@ -1,0 +1,177 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        $("#flip").click(function(){
+          $("#panel").slideToggle("slow");
+      });
+    });
+    </script>
+    <style>
+#panel, #flip {
+    padding: 5px;
+    text-align: center;
+    background-color: #e5eecc;
+    border: solid 1px #c3c3c3;
+}
+
+#panel {
+    padding: 50px;
+    display: none;
+}
+</style>
+
+    <table class="table table-striped" style="width:100%">
+      <tr>
+        <th><div class="art-vmenublockheader"><h3 class="t">Data</h3></div></th>
+        <th><div class="art-vmenublockheader"><h3 class="t">Helper</h3></div></th>
+        <th><div class="art-vmenublockheader"><h3 class="t">Shopper</h3></div></th>
+        <th><div class="art-vmenublockheader"><h3 class="t">Cleaner</h3></div></th>
+        <th><div class="art-vmenublockheader"><h3 class="t">Participate</h3></div></th>
+        <th><div class="art-vmenublockheader"><h3 class="t">Participate List</h3></div></th>
+        <th></th>
+      </tr>
+
+    {% for meal in meals %}
+      <tr>
+        <td>
+        <table >
+          <tr >
+            <td><div class="art-vmenublockheader"><h3 class="t">Name</h3></div></td>
+            <td><div class="art-vmenublockheader"><h3 class="t">{{ meal.name }}</h3></div></td>
+          </tr>
+          <tr>
+            <td><div class="art-vmenublockheader"><h3 class="t">Date</h3></div></td>
+            <td width="180"><div class="art-vmenublockheader"><h3 class="t">{{ meal.date }}</h3></div></td>
+          </tr>
+          <tr>
+          <td width=180><div class="art-vmenublockheader"><h3 class="t">Participants</h3></div></td>
+          <td><div class="art-vmenublockheader"><h3 class="t">{{meal.ParticipateCount}}</h3></div></td>
+          </tr>
+          </td>
+          </table >
+         {% if meal.helper == 0 %}
+          <td>
+            <form method="POST" action="/addHellper">
+            <div class="form-group">
+            <button class="btn btn-primary"  name="addHellper" type="submit"  value={{meal.id}}><div class="art-vmenublockheader"><h3 class="t">Helper</h3></div></button>
+            </div>
+            </form>
+          </td>
+          {% else %}
+            <td>
+                <div class="art-vmenublockheader"><h3 class="t">{{meal.helper}}</h3></div>
+            </td>
+
+          {% endif %}
+
+
+
+
+         {% if meal.Shopper == 0 %}
+        <td>
+          <form method="POST" action="/addShopper">
+          <div class="form-group">
+            <button class="btn btn-primary"  name="addShopper" value={{meal.id}} type="submit"><div class="art-vmenublockheader"><h3 class="t">Shopper</h3></div></button>
+        </div>
+        </form>
+        </td>
+        {% else %}
+        <td>
+          <div class="art-vmenublockheader"><h3 class="t">{{meal.Shopper}}</h3></div>
+        </td>
+
+        {% endif %}
+
+
+
+         {% if meal.Cleaner == 0 %}
+        <td>
+          <form method="POST" action="/addCleaner">
+          <div class="form-group">
+            <button class="btn btn-primary"  name="addCleaner" type="submit"  value={{meal.id}}><div class="art-vmenublockheader"><h3 class="t">Cleaner</h3></div></button>
+        </div>
+        </form>
+        </td>
+        {% else %}
+        <td>
+          <div class="art-vmenublockheader"><h3 class="t">{{meal.Cleaner}}</h3></div>
+        </td>
+
+        {% endif %}
+
+
+
+         {% if meal.Participate == 0 %}
+        <td>
+          <form method="POST" action="/addParticipate">
+          <div class="form-group">
+            <button class="btn btn-primary"  name="addParticipate" type="submit"  value={{meal.id}}><div class="art-vmenublockheader"><h3 class="t">Participate</h3></div></button>
+        </div>
+        </form>
+        </td>
+        {% else %}
+        <td>
+          <div class="art-vmenublockheader"><h3 class="t">{{meal.Participate}}</h3></div>
+        </td>
+
+        {% endif %}
+
+        <td>
+            <div class="form-group">
+            <button id="flip" class="btn btn-primary"  name="addParticipate" type="button"   value={{meal.id}}>List</button>
+              </div>
+        </div>
+
+
+
+        </div>
+        </form>
+        </td>
+
+        <td>
+            <img src="/static/{{meal.id}}.jpg"  alt="{{image}}" style="width:150px; height:150px">
+        </td>
+
+      </tr>
+
+
+      <tr>
+        <td colspan=7>
+        <div id="panel">
+          <table border=1>
+          <tr>
+            <td>First Name</td>
+            <td>Last Name</td>
+            <td>Age</td>
+        </tr>
+        <tr>
+            <td>Mohamed</td>
+            <td>Dahman</td>
+            <td>11</td>
+        </tr>
+        <tr>
+            <td>Sami</td>
+            <td>Kok</td>
+            <td>12</td>
+        </tr>
+        </td>
+
+      </table>
+      </div>
+      </tr>
+
+
+
+    {% endfor %}
+
+    </table>
+
+
+{% endblock %}
