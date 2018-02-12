@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block title %}
+    shopping
+{% endblock %}
+{% block main %}
+    <table class="table table-striped" style="width:100%">
+      <tr>
+        <th>Name</th>
+        <th>Date</th>
+        <th colspan=2>Add</th>
+      </tr>
+    {% for meal in meals %}
+      <tr>
+        <td>{{ meal.name }}</td>
+        <td>{{ meal.date }}</td>
+        <form method="POST" action="/shopping">
+          <td><input class="form-control" name="price"  placeholder="price $" type="number"/>  </td>
+          <td><button class="btn btn-primary" value={{meal.id}} type="submit" name="s1" >submit</button></td>
+        </form>
+
+      </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
+
+

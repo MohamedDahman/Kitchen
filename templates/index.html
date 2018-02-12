@@ -32,15 +32,15 @@
 								<ul class="art-menu">
 									{% if session.user_id %}
 									<li><a href="./index.html" class="active"><span class="l"> </span><span class="r"> </span><span class="t">Home</span></a></li>
-									<li><a href="./Suggesions.html"><span class="l"> </span><span class="r"> </span><span class="t">Suggesions</span></a></li>
+									<li><a href="/addsug"><span class="l"> </span><span class="r"> </span><span class="t">Suggesions</span></a></li>
 									<li><a href="/units"><span class="l"> </span><span class="r"> </span><span class="t">Shopper</span></a></li>
 									<li><a href="/units"><span class="l"> </span><span class="r"> </span><span class="t">History</span></a></li>
 									<li><a href="./about-us.html"><span class="l"> </span><span class="r"> </span><span class="t">About us</span></a></li>
-									<li><a href="./contact-us.html"><span class="l"> </span><span class="r"> </span><span class="t">Contact us</span></a></li>
+									<li><a href="/listmeal"><span class="l"> </span><span class="r"> </span><span class="t">Meal List</span></a></li>
                                     <li><a href="./contact-us.html" class="active"><span class="l"> </span><span class="r"> </span><span class="t">Log out</span></a></li>
                                     {% else %}
 										<li><a href="/login"><span class="l"> </span><span class="r"> </span><span class="t">Log in</span></a></li>
-										<li><a href="/units"><span class="l"> </span><span class="r"> </span><span class="t">Register</span></a></li>
+										<li><a href="/register"><span class="l"> </span><span class="r"> </span><span class="t">Register</span></a></li>
                                     {% endif %}
 
 								</ul>
@@ -88,15 +88,28 @@
 											<div class="art-post-cc"></div>
 											<div class="art-post-body">
 												<div class="art-post-inner art-article">
-													<h2 class="art-postheader">Home</h2>
+													<h2 class="art-postheader" style="color: rgb(172,163,163);">Purpose:</h2>
 													<div class="art-postcontent">
-														<h2><span style="font-size: 16px;"><span style="color: rgb(255, 255, 255);"> </span></span><span style="text-transform: none; "><span style="font-size: 16px;"><span style="color: rgb(255, 255, 255);">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed massa purus, non tincidunt ante. Morbi laoreet nunc a odio adipiscing eleifend. Suspendisse egestas feugiat lectus, id iaculis mauris suscipit vel. Nullam vel orci id nulla scelerisque venenatis. </span></span></span></h2>
+														<h3><span style="font-size: 16px;"><span style="color: rgb(247, 247, 247);"> </span></span><span style="text-transform: none; "><span style="font-size: 16px;"><span style="color: rgb(245,182,57);">Let’s cook together, the easier way.
+
+                                                                                    What’s the problem: Sharing food has a connecting function. But cooking takes time and preparation and overview. Through a simple cooking / scheduling app we can take away the pain and make sure we have at least one meal together every weekjh. </span></span></span></h3>
 														<p><span style="text-transform: none; "><span style="font-size: 16px;"><span style="color: rgb(255, 255, 255);"><br /></span></span></span></p>
-														<p><span style="font-size: 14px;">Phasellus rutrum, lacus nec iaculis imperdiet, risus ligula volutpat turpis, quis pharetra erat nibh ut elit. Phasellus eu vulputate odio. Maecenas posuere congue ipsum et tristique. </span></p>
+														<p><span style="font-size: 16px;">User Stories: </span></p>
+														<ul>
+															<li  style="color: rgb(153,102,51);">As a cook, I like to pick the dish and allow people to sign up for eating.</li>
+															<li  style="color: rgb(153,102,51);">As a cook, I like to write a shopping list for others to buy.</li>
+															<li  style="color: rgb(153,102,51);">As an anti-cook, I can do the shopping because everything I touch burns down.</li>
+															<li  style="color: rgb(153,102,51);">As someone with no time this week I just want to sign up for the meal.</li>
+															<li  style="color: rgb(153,102,51);">As a cleaner I want to say thank you by promising to clean the kitchen afterwards</li>
+															<li  style="color: rgb(153,102,51);">As a normally talented person, I can sign up for cutting vegetables or helping the chef cook.</li>
+															<li  style="color: rgb(153,102,51);">As someone who cares about fairness, it’s nice to earn points for each role.</li>
+															<li  style="color: rgb(153,102,51);">As someone who’s hungry I want to see what’s on the menu this week.</li>
+															<li  style="color: rgb(153,102,51);">As someone who cares about money, I want to split up the costs between all participants.</li>
+														</ul>
+														<p><span style="font-size: 14px;"><br/></span></p>
+														<p><span style="font-size: 16px;">Technology Stack: </span></p>
 														<p><span style="font-size: 14px;"><br /></span></p>
-														<p><span style="font-size: 14px;">Sed varius libero at ligula ornare bibendum. Aliquam non nunc est, eget commodo mi. Mauris porta, nulla sit amet mollis pharetra, sem mauris cursus dui, at laoreet ipsum justo sed turpis. </span></p>
-														<p><span style="font-size: 14px;"><br /></span></p>
-														<p><span style="font-size: 14px;">Vestibulum rhoncu</span><span style="font-size: 14px;">s egestas odio in varius. Vestibulum tempor, nisi sed ullamcorper porta, nunc diam euismod mauris, nec egestas quam lectus ut felis. Pellentesque tellus urna, faucibus ut volutpat non, tempor nec justo. </span><span style="color: rgb(247, 247, 247); font-family: Arial, Helvetica, sans-serif; "><span style="font-size: 14px;"> luctus et euismod vel, posuere in </span></span></p>
+														<p><span style="font-size: 14px;"></span><span style="font-size: 14px; color: rgb(153,102,51);">Flask, JavaScript, Jinja, … </span><span style="color: rgb(247, 247, 247); font-family: Arial, Helvetica, sans-serif; "><span style="font-size: 14px;"> </span></span></p>
 														<p><span style="color: rgb(247, 247, 247); font-family: Arial, Helvetica, sans-serif; "><span style="font-size: 14px;"><br /></span></span></p>
 													</div>
 													<div class="cleared"></div>
@@ -117,7 +130,7 @@
 								<div class="art-footer-body">
 									<div class="art-footer-text">
 										<p><a href="./#">Link1</a> | <a href="./#">Link2</a> | <a href="./#">Link3</a></p>
-										<p>Copyright © 2012. All Rights Reserved.</p>
+										<p>Copyright © 2018. All Rights Reserved.</p>
 									</div>
 									<div class="cleared"></div>
 								</div>
@@ -126,7 +139,7 @@
 						</div>
 					</div>
 					<div class="cleared"></div>
-					<p class="art-page-footer">Designed by <a href="http://www.tworzenie-stron-internetowych.biz.pl/">tworzenie stron internetowych</a>.</p>
+					<p class="art-page-footer">Designed by <a href="http://www.tworzenie-stron-internetowych.biz.pl/">Mosleh-Dahman-Diaa-Farah-ismael-Hosam</a>.</p>
 				</div>
 			</div>
 		</div>
