@@ -36,8 +36,9 @@ body {
 
 h1 {
   margin: 0 0 20px 0;
-  font-weight: 300;
-  font-size: 28px;
+  font-weight: 100;
+  font-size: 8px;
+  color: #e3650d;
 }
 
 input[type="text"],
@@ -163,7 +164,6 @@ button.social-signin.google {
 }
 
 
-@import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 .login-page {
   width: 360px;
@@ -210,7 +210,7 @@ button.social-signin.google {
 }
 .form .message {
   margin: 15px 0 0;
-  color: #b3b3b3;
+  color: #e26c0e;
   font-size: 12px;
 }
 .form .message a {
@@ -345,20 +345,21 @@ h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover
 .art-postcontent h1
 {
    margin: 21px 0 21px 0;
-   color: #FFFFFF;
+   color: #e3650d;
+   font-size: 8px;
 
 }
 
 .art-postcontent h2
 {
-    color: #FFFFFF;
+   color: #FFFFFF;
    margin: 19px 0 19px 0;
    font-size: 24px;
 }
 
 .art-postcontent h3
 {
-   margin: 19px 0 19px 0;
+  margin: 19px 0 19px 0;
   color: #FFFFFF;
   font-size: 19px;
 }
