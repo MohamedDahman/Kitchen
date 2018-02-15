@@ -8,10 +8,28 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import apology
 import os
 from helpers import login_required
-
+from tempfile import mkdtemp
+import datetime
+import atexit
+from apscheduler.scheduler import Scheduler
+from flask_mail import Mail, Message
+import smtplib
+from email.mime.text import MIMEText
 
 # Configure application
 app = Flask(__name__)
+
+cron = Scheduler(daemon=True)
+# Explicitly kick off the background thread
+if os.environ.get('WERKZEUG_RUN_MAIN') != 'true':
+    cron.start()
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_USERNAME'] = 'it.diaaa@gmail.com'
+app.config['MAIL_PASSWORD'] = 'd123321d'
+
+mail = Mail(app)
 
 
 UPLOAD_FOLDER = 'static'
@@ -252,6 +270,12 @@ def register():
         # Query if there is any similar username
         rows = db.execute("SELECT * FROM users WHERE username = :username",
                           username=username)
+        ########Diaa##############################
+        time=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        msg = Message(' Kitchen App Service !! ' + time,sender='it.diaaa@gmail.com', recipients =[email])
+        msg.html=render_template('/welcomeuser.html',user_name=username)
+        mail.send(msg)
+        ########Diaa##############################
 
         # Ensure username not exists
         if len(rows) == 1:
