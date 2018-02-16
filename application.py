@@ -215,7 +215,21 @@ def addsug():
        newfilename = UPLOAD_FOLDER+"/"+str(Maxid) +".jpg"
        os.rename(f,newfilename)
        unitsrows = db.execute("SELECT description FROM units")
-       return render_template("materialdetails.html",units =unitsrows ,mealid=Maxid, mealName=mealName,mealDes=mealDes,mealDate=mealDate,cook=session["user_id"])
+       ###########Diaa##########
+       users = db.execute("SELECT * FROM users")
+       cook_user = db.execute("SELECT username FROM users where id=:u_id",u_id=session["user_id"])
+       a_users =[]
+       allUsers =''
+       for i in range(len(users)):
+           allUsers = str(users[i]['eMail'])
+           print(allUsers)
+           with mail.connect() as conn:
+               message = render_template("sug_email.html",mealName=mealName,mealDes=mealDes,mealDate=mealDate,cook=cook_user[0]['username'],newfilename=newfilename)
+               subject = "hello, %s" % "all"
+               msg = Message(sender='it.diaaa@gmail.com',recipients=[allUsers], html=message,subject=subject)
+               mail.send(msg)
+       ###########Diaa##########
+       return render_template("materialdetails.html",units =unitsrows ,mealid=Maxid, mealName=mealName,mealDes=mealDes,mealDate=mealDate,cook=cook_user[0]['username'])
    else:
        return render_template("addsug.html")
 
