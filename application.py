@@ -9,9 +9,30 @@ from helpers import apology
 import os
 from helpers import login_required,getOwner,mealProcess,isParticipant,getParticipantKind , getCommunities
 import datetime
+from helpers import login_required
+from tempfile import mkdtemp
+import datetime
+import atexit
+from apscheduler.scheduler import Scheduler
+from flask_mail import Mail, Message
+import smtplib
+from email.mime.text import MIMEText
+
 
 # Configure application
 app = Flask(__name__)
+
+cron = Scheduler(daemon=True)
+# Explicitly kick off the background thread
+if os.environ.get('WERKZEUG_RUN_MAIN') != 'true':
+    cron.start()
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_USERNAME'] = 'it.diaaa@gmail.com'
+app.config['MAIL_PASSWORD'] = 'd123321d'
+
+mail = Mail(app)
 
 
 UPLOAD_FOLDER = 'static'
@@ -166,7 +187,21 @@ def addsug():
        newfilename = UPLOAD_FOLDER+"/"+str(Maxid) +".jpg"
        os.rename(f,newfilename)
        unitsrows = db.execute("SELECT description FROM units")
-       return render_template("materialdetails.html",units =unitsrows ,mealid=Maxid, mealName=mealName,mealDes=mealDes,mealDate=mealDate,cook=session["user_id"])
+       ###########Diaa##########
+       users = db.execute("SELECT * FROM users")
+       cook_user = db.execute("SELECT username FROM users where id=:u_id",u_id=session["user_id"])
+       a_users =[]
+       allUsers =''
+       for i in range(len(users)):
+           allUsers = str(users[i]['eMail'])
+           print(allUsers)
+           with mail.connect() as conn:
+               message = render_template("sug_email.html",mealName=mealName,mealDes=mealDes,mealDate=mealDate,cook=cook_user[0]['username'],newfilename=newfilename)
+               subject = "hello, %s" % "all"
+               msg = Message(sender='it.diaaa@gmail.com',recipients=[allUsers], html=message,subject=subject)
+               mail.send(msg)
+       ###########Diaa##########
+       return render_template("materialdetails.html",units =unitsrows ,mealid=Maxid, mealName=mealName,mealDes=mealDes,mealDate=mealDate,cook=cook_user[0]['username'])
    else:
        return render_template("addsug.html")
 
@@ -221,6 +256,12 @@ def register():
         # Query if there is any similar username
         rows = db.execute("SELECT * FROM users WHERE username = :username",
                           username=username)
+        ########Diaa##############################
+        time=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        msg = Message(' Kitchen App Service !! ' + time,sender='it.diaaa@gmail.com', recipients =[email])
+        msg.html=render_template('/welcomeuser.html',user_name=username)
+        mail.send(msg)
+        ########Diaa##############################
 
         # Ensure username not exists
         if len(rows) == 1:
