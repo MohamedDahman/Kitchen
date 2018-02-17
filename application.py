@@ -1,14 +1,14 @@
 from cs50 import SQL
 import urllib.request
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, flash, redirect, render_template, request, session,jsonify
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions
 from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import apology
 import os
-from helpers import login_required
-
+from helpers import login_required,getOwner,mealProcess,isParticipant,getParticipantKind , getCommunities
+import datetime
 
 # Configure application
 app = Flask(__name__)
@@ -38,10 +38,10 @@ Session(app)
 
 
 
-
 @app.route("/")
 def index():
         return render_template("index.html")
+
 
 @app.route("/logout")
 def logout():
@@ -98,13 +98,13 @@ def login():
 
 
 @app.route("/listmeal", methods=["GET", "POST"])
-@login_required
 def listmeal():
         rowData = {}  # this is a dict
         listRowData = []  # this is list
-
+        now = datetime.datetime.now()
         # in this function to get all shares with current price and put it in the list of dict
-        rows = db.execute("select * from  meals order by date")
+        rows = db.execute("select * from  meals  where date >= :date order by date asc", date = str(now))
+
         currentRow = 0
         while currentRow <= len(rows) - 1:
             rowData = {}
@@ -112,75 +112,44 @@ def listmeal():
             rowData['name'] = rows[currentRow]["name"]
             rowData['date'] = rows[currentRow]["date"]
 
-
-            helper = db.execute("select count(*) as Counts,userId as helper from  mealProcess where community =2 and mealId = :mealId group by userId",
-                               mealId=rows[currentRow]["id"])
-            if len(helper) == 1:
-                    users = db.execute("select userName from  users where id = :userid",
-                                userid=helper[0]["helper"])
-                    rowData['helper'] = users[0]["username"]
-            else:
-                    rowData['helper'] =0
-
-
-
-            Shopper = db.execute("select count(*) as Counts,userId as helper from  mealProcess where community =4 and mealId = :mealId group by userId",
-                               mealId=rows[currentRow]["id"])
-            if len(Shopper) == 1:
-                    users = db.execute("select userName from  users where id = :userid",
-                                userid=Shopper[0]["helper"])
-                    rowData['Shopper'] = users[0]["username"]
-            else:
-                    rowData['Shopper'] =0
-
-
-            Cleaner = db.execute("select count(*) as Counts,userId as helper from  mealProcess where community =3 and mealId = :mealId group by userId",
-                               mealId=rows[currentRow]["id"])
-            if len(Cleaner) == 1:
-                    users = db.execute("select userName from  users where id = :userid",
-                                userid=Cleaner[0]["helper"])
-                    rowData['Cleaner'] = users[0]["username"]
-            else:
-                    rowData['Cleaner'] =0
-
-
-
-            Participate = db.execute("select count(*) as Counts,userId as helper from  mealProcess where community =5 and mealId = :mealId group by userId",
-                               mealId=rows[currentRow]["id"])
-            if len(Participate) == 1:
-                    users = db.execute("select userName from  users where id = :userid",
-                                userid=Participate[0]["helper"])
-                    rowData['Participate'] = users[0]["username"]
-            else:
-                    rowData['Participate'] =0
-
-
-            ParticipateCount = db.execute("select count(*) as Counts from  mealProcess where community =5 and mealId = :mealId ",
-                               mealId=rows[currentRow]["id"])
-            count =  ParticipateCount[0]["Counts"]
-
             workerCount = db.execute("select count(distinct userId) as userCount from  mealProcess where  mealId = :mealId",
-                               mealId=rows[currentRow]["id"])
-            count +=  workerCount[0]["userCount"]
-
+                                     mealId=rows[currentRow]["id"])
+            count =  workerCount[0]["userCount"]
             rowData['ParticipateCount'] = count
+
+            rowData['username'] = getOwner(rows[currentRow]["id"] )
+
+            rowData['isParticipant'] = getParticipantKind(rows[currentRow]["id"], session["user_id"])
+            print(rowData['isParticipant'])
 
             listRowData.append(rowData)
             currentRow = currentRow + 1
 
+        return render_template("master.html", meals = listRowData , communities = getCommunities)
 
 
-        return render_template("master.html", meals = listRowData)
 
+
+@app.route("/participant", methods=["GET", "POST"])
+def participant():
+        # print(request.args)
+        mealId = request.args.get("mealId")
+        rows = db.execute("select users.username from  mealProcess , users   where mealId= :mealId and users.id = mealProcess.userId " , mealId = mealId )
+        return jsonify(rows)
 
 @app.route("/addsug", methods=["GET", "POST"])
-@login_required
 def addsug():
 
    if request.method == "POST":
        mealName = request.form.get("name")
        mealDes = request.form.get("description")
        mealDate = request.form.get("date")
+
+       mealId = db.execute("select max(id) as maxId from meals")
+       maxId = mealId[0]["maxId"] + 1
+       currentUserId = session["maxId"]
+       community = 1 # 	Cooker
+       mealProcess(mealId, community, currentUserId)
 
 
        file = request.files['image']
@@ -273,5 +242,67 @@ def register():
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:
-        return render_template("register.html")
+        return render_template("regispater.html")
 
+
+@app.route("/removeParticipate", methods=["GET", "POST"])
+@login_required
+def removeParticipate():
+    print("me")
+    return redirect("/")
+
+
+@app.route("/addParticipate", methods=["GET", "POST"])
+@login_required
+def addParticipate():
+    mealId = request.form.get("addParticipate")
+    currentUserId = session["user_id"]
+    community = 5 # 	Cooker Helper
+    mealProcess(mealId, community, currentUserId)
+    return redirect("/")
+
+
+@app.route("/addHellper", methods=["GET", "POST"])
+@login_required
+def addCokker():
+    mealId = request.form.get("addHellper")
+    currentUserId = session["user_id"]
+    community = 2 # 	Cooker Helper
+    mealProcess(mealId, community, currentUserId)
+    return redirect("/")
+
+
+@app.route("/addShopper", methods=["GET", "POST"])
+@login_required
+def addShopper():
+    mealId = request.form.get("addShopper")
+    currentUserId = session["user_id"]
+    community = 4 # 	Cooker Helper
+    mealProcess(mealId, community, currentUserId)
+    return redirect("/")
+
+
+
+@app.route("/addCleaner", methods=["GET", "POST"])
+@login_required
+def addCleaner():
+    mealId = request.form.get("addCleaner")
+    currentUserId = session["user_id"]
+    community = 3 # 	Cooker Helper
+    mealProcess(mealId, community, currentUserId)
+    return redirect("/")
+
+
+
+
+
+@app.route("/addComunity", methods=["GET", "POST"])
+@login_required
+def addComunity():
+    Comunitytype = request.form.get("addComunity")
+    mealId = request.form.get("addComunity")
+    currentUserId = session["user_id"]
+    community = request.form.get("community")
+    if isParticipant(mealId, currentUserId) == 0:
+        mealProcess(mealId, community, currentUserId)
+    return redirect("listmeal")

@@ -5,173 +5,118 @@
 {% endblock %}
 
 {% block main %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>
-      $(document).ready(function(){
-        $("#flip").click(function(){
-          $("#panel").slideToggle("slow");
-      });
-    });
-    </script>
-    <style>
-#panel, #flip {
-    padding: 5px;
-    text-align: center;
-    background-color: #e5eecc;
-    border: solid 1px #c3c3c3;
-}
 
-#panel {
-    padding: 50px;
-    display: none;
-}
-</style>
+		<div id="art-page-background-glare">
+			<div id="art-page-background-glare-image">
+				<div id="art-main">
+				  	<div class="art-sheet">
+						<div class="art-sheet-tl"></div>
+						<div class="art-sheet-tr"></div>
+						<div class="art-sheet-bl"></div>
+						<div class="art-sheet-br"></div>
+						<div class="art-sheet-tc"></div>
+						<div class="art-sheet-bc"></div>
+						<div class="art-sheet-cl"></div>
+						<div class="art-sheet-cr"></div>
+						<div class="art-sheet-cc"></div>
+						<div class="art-sheet-body">
+						<ul class="art-menu">
+						<li><a href="/" class="active"><span class="l"> </span><span class="r"> </span><span class="t">Home</span></a></li>
+						<li><a href="/addsug"><span class="l"> </span><span class="r"> </span><span class="t">Suggesions</span></a></li>
+						<li><a href="/units"><span class="l"> </span><span class="r"> </span><span class="t">Shopper</span></a></li>
+						<li><a href="/units"><span class="l"> </span><span class="r"> </span><span class="t">History</span></a></li>
+						<li><a href="./about-us.html"><span class="l"> </span><span class="r"> </span><span class="t">About us</span></a></li>
+						<li><a href="/listmeal"><span class="l"> </span><span class="r"> </span><span class="t">Meal List</span></a></li>
+						</ul>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
 
     <table class="table table-striped" style="width:100%">
       <tr>
-        <th><div class="art-vmenublockheader"><h3 class="t">Data</h3></div></th>
-        <th><div class="art-vmenublockheader"><h3 class="t">Helper</h3></div></th>
-        <th><div class="art-vmenublockheader"><h3 class="t">Shopper</h3></div></th>
-        <th><div class="art-vmenublockheader"><h3 class="t">Cleaner</h3></div></th>
-        <th><div class="art-vmenublockheader"><h3 class="t">Participate</h3></div></th>
-        <th><div class="art-vmenublockheader"><h3 class="t">Participate List</h3></div></th>
-        <th></th>
+        <th width="45%"><div class="art-vmenublockheader"><h3 class="t">Data</h3></div></th>
+        <th width="15%"><div class="art-vmenublockheader"><h3 class="t">Participate Type</h3></div></th>
+        <th width="40%"><div class="art-vmenublockheader"><h3 class="t">Image</h3></div></th>
       </tr>
-
     {% for meal in meals %}
       <tr>
         <td>
-        <table >
-          <tr >
-            <td><div class="art-vmenublockheader"><h3 class="t">Name</h3></div></td>
-            <td><div class="art-vmenublockheader"><h3 class="t">{{ meal.name }}</h3></div></td>
-          </tr>
-          <tr>
-            <td><div class="art-vmenublockheader"><h3 class="t">Date</h3></div></td>
-            <td width="180"><div class="art-vmenublockheader"><h3 class="t">{{ meal.date }}</h3></div></td>
-          </tr>
-          <tr>
-          <td width=180><div class="art-vmenublockheader"><h3 class="t">Participants</h3></div></td>
-          <td><div class="art-vmenublockheader"><h3 class="t">{{meal.ParticipateCount}}</h3></div></td>
-          </tr>
-          </td>
-          </table >
-         {% if meal.helper == 0 %}
-          <td>
-            <form method="POST" action="/addHellper">
-            <div class="form-group">
-            <button class="btn btn-primary"  name="addHellper" type="submit"  value={{meal.id}}><div class="art-vmenublockheader"><h3 class="t">Helper</h3></div></button>
-            </div>
-            </form>
-          </td>
-          {% else %}
-            <td>
-                <div class="art-vmenublockheader"><h3 class="t">{{meal.helper}}</h3></div>
-            </td>
+                    <table >
+                      <tr >
+                        <td><div class="art-vmenublockheader"><h3 class="t">Name</h3></div></td>
+                        <td><div class="art-vmenublockheader"><h3 class="t">{{ meal.name }}</h3></div></td>
+                      </tr>
+                      <tr>
+                        <td><div class="art-vmenublockheader"><h3 class="t">Suggestion Owner</h3></div></td>
+                        <td width="180"><div class="art-vmenublockheader"><h3 class="t">{{ meal.username }}</h3></div></td>
+                      </tr>
+                      <tr>
+                        <td><div class="art-vmenublockheader"><h3 class="t">Date</h3></div></td>
+                        <td width="180"><div class="art-vmenublockheader"><h3 class="t">{{ meal.date }}</h3></div></td>
+                      </tr>
+                      </td>
+                      </table >
+      </td>
+      <td>
+                <table>
 
-          {% endif %}
+                  <tr>
+                    <td>
+                      {% if isParticipant == 0 %}
+                          <form method="POST" action="/addComunity">
+                          <select class="form-control" name="community">
+                            {% for community in communities %}
+                              <option value="{{ community.id }}">{{ community.description }}</option>
+                            {% endfor %}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <div class="form-group">
+                        <button class="btn btn-primary"  name="addComunity" value={{meal.id}} type="submit"><div class="art-vmenublockheader"><h3 class="t">add me</h3></div></button>
+                        </div>
+                        </form>
+                    {% endif %}
+                    {% if isParticipant != 1 %}
+                    <form method="POST" action="/removeParticipate">
+                        <div class="form-group">
+                        <button class="btn btn-primary"  name="removeComunity" value={{meal.id}} type="submit"><div class="art-vmenublockheader"><h3 class="t">remove me</h3></div></button>
+                        </div>
 
+                    </form>
 
-
-
-         {% if meal.Shopper == 0 %}
-        <td>
-          <form method="POST" action="/addShopper">
-          <div class="form-group">
-            <button class="btn btn-primary"  name="addShopper" value={{meal.id}} type="submit"><div class="art-vmenublockheader"><h3 class="t">Shopper</h3></div></button>
-        </div>
-        </form>
-        </td>
-        {% else %}
-        <td>
-          <div class="art-vmenublockheader"><h3 class="t">{{meal.Shopper}}</h3></div>
-        </td>
-
-        {% endif %}
-
+                    </td>
+                    {% endif %}
 
 
-         {% if meal.Cleaner == 0 %}
-        <td>
-          <form method="POST" action="/addCleaner">
-          <div class="form-group">
-            <button class="btn btn-primary"  name="addCleaner" type="submit"  value={{meal.id}}><div class="art-vmenublockheader"><h3 class="t">Cleaner</h3></div></button>
-        </div>
-        </form>
-        </td>
-        {% else %}
-        <td>
-          <div class="art-vmenublockheader"><h3 class="t">{{meal.Cleaner}}</h3></div>
-        </td>
-
-        {% endif %}
-
-
-
-         {% if meal.Participate == 0 %}
-        <td>
-          <form method="POST" action="/addParticipate">
-          <div class="form-group">
-            <button class="btn btn-primary"  name="addParticipate" type="submit"  value={{meal.id}}><div class="art-vmenublockheader"><h3 class="t">Participate</h3></div></button>
-        </div>
-        </form>
-        </td>
-        {% else %}
-        <td>
-          <div class="art-vmenublockheader"><h3 class="t">{{meal.Participate}}</h3></div>
-        </td>
-
-        {% endif %}
-
-        <td>
-            <div class="form-group">
-            <button id="flip" class="btn btn-primary"  name="addParticipate" type="button"   value={{meal.id}}>List</button>
-              </div>
-        </div>
-
-
-
-        </div>
-        </form>
-        </td>
-
-        <td>
-            <img src="/static/{{meal.id}}.jpg"  alt="{{image}}" style="width:150px; height:150px">
-        </td>
-
-      </tr>
-
-
-      <tr>
-        <td colspan=7>
-        <div id="panel">
-          <table border=1>
-          <tr>
-            <td>First Name</td>
-            <td>Last Name</td>
-            <td>Age</td>
-        </tr>
-        <tr>
-            <td>Mohamed</td>
-            <td>Dahman</td>
-            <td>11</td>
-        </tr>
-        <tr>
-            <td>Sami</td>
-            <td>Kok</td>
-            <td>12</td>
-        </tr>
-        </td>
+                  </tr>
 
       </table>
-      </div>
-      </tr>
+      </td>
+          <td><img src="/static/{{meal.id}}.jpg"  alt="{{image}}" style="width:150px; height:150px"></td>
 
+      </tr>
+      <tr><td colspan=3><div class="art-vmenublockheader"><h3 class="t">Participate List</h3></div></td></tr>
+      <tr>
+
+      <td colspan=3>
+        <span id="divParticipat{{meal.id}}"></span>
+             <input class="form-control" name="mealidtext{{meal.id}}" id="mealidtext{{meal.id}}" value="{{meal.id}}"  type="text"  hidden />
+             <script>
+
+                buildmealParticipant(document.getElementById("mealidtext{{meal.id}}").value);
+            </script>
+
+      </td>
+      </tr>
 
 
     {% endfor %}
 
     </table>
-
 
 {% endblock %}

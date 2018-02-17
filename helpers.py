@@ -11,7 +11,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from flask import redirect, render_template, request, session
 from functools import wraps
 
-
+db = SQL("sqlite:///kitchen.db")
 
 def login_required(f):
     """
@@ -40,3 +40,42 @@ def apology(message, code=400):
             s = s.replace(old, new)
         return s
     return render_template("apology.html", top=code, bottom=escape(message)), code
+
+
+def mealProcess(mealId, community, userID):
+    rows = db.execute("insert into  mealProcess (mealId, community, userId) values (:mealId, :community, :userId)",
+                      mealId=mealId, community=community ,userId=userID)
+    return rows
+
+
+def isParticipant(mealId, userID):
+    rows = db.execute("select count(*) as Counts  from mealProcess where  mealId = :mealId and  userId = :userId",
+                      mealId = mealId, userId=userID)
+    return rows[0]["Counts"]
+
+
+def getOwner(mealId):
+        owner = db.execute("select users.username from  mealProcess , users   where mealId= :mealId and users.id = mealProcess.userId and community = 1 " , mealId = mealId)
+        if len(owner) !=0 :
+                return   owner[0]["username"]
+        else:
+                return  ""
+
+
+
+def getParticipantKind(mealId, userID):
+    rows = db.execute("select community from   mealProcess where  mealId = :mealId and  userId = :userId",
+                      mealId = mealId, userId=userID)
+    if len(rows) != 0:
+        return rows[0]["community"]
+    else:
+        return 0
+
+
+
+
+
+
+def getCommunities():
+        communities = db.execute("select * from community where id <>1 ")
+        return communities
