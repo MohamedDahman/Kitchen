@@ -7,11 +7,11 @@ from werkzeug.exceptions import default_exceptions
 from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import apology
 import os
-from helpers import login_required,getOwner,mealProcess,isParticipant,getParticipantKind , getCommunities
+from helpers import login_required,getOwner,mealProcess,isParticipant,getParticipantKind , getCommunities, getUnits,getMealParticipant
+from helpers  import getParticipantCount,getAllMealsAfterToday , addUser , sendWellcomdeMail
 import datetime
 from helpers import login_required
 from tempfile import mkdtemp
-import datetime
 import atexit
 from apscheduler.scheduler import Scheduler
 from flask_mail import Mail, Message
@@ -120,43 +120,16 @@ def login():
 
 @app.route("/listmeal", methods=["GET", "POST"])
 def listmeal():
-        rowData = {}  # this is a dict
-        listRowData = []  # this is list
-        now = datetime.datetime.now()
-        # in this function to get all shares with current price and put it in the list of dict
-        rows = db.execute("select * from  meals  where date >= :date order by date asc", date = str(now))
-
-        currentRow = 0
-        while currentRow <= len(rows) - 1:
-            rowData = {}
-            rowData['id'] = rows[currentRow]["id"]
-            rowData['name'] = rows[currentRow]["name"]
-            rowData['date'] = rows[currentRow]["date"]
-
-            workerCount = db.execute("select count(distinct userId) as userCount from  mealProcess where  mealId = :mealId",
-                                     mealId=rows[currentRow]["id"])
-            count =  workerCount[0]["userCount"]
-            rowData['ParticipateCount'] = count
-
-            rowData['username'] = getOwner(rows[currentRow]["id"] )
-
-            rowData['isParticipant'] = getParticipantKind(rows[currentRow]["id"], session["user_id"])
-            print(rowData['isParticipant'])
-
-            listRowData.append(rowData)
-            currentRow = currentRow + 1
-
-        return render_template("master.html", meals = listRowData , communities = getCommunities)
-
-
+        return render_template("master.html", meals = getAllMealsAfterToday() , communities = getCommunities)
 
 
 @app.route("/participant", methods=["GET", "POST"])
 def participant():
         # print(request.args)
         mealId = request.args.get("mealId")
-        rows = db.execute("select users.username from  mealProcess , users   where mealId= :mealId and users.id = mealProcess.userId " , mealId = mealId )
-        return jsonify(rows)
+        MealParticipant = getMealParticipant(mealId)
+        return jsonify(MealParticipant)
+
 
 @app.route("/addsug", methods=["GET", "POST"])
 def addsug():
@@ -183,10 +156,10 @@ def addsug():
        suggestion = db.execute("INSERT INTO meals (name, description, date, userId) VALUES (:mName, :mDescription, :mDate ,:user_id)",
                            mName=mealName, mDescription=mealDes, mDate=mealDate , user_id=session["user_id"]  )
        Maxidrows = db.execute("SELECT max(id) as id FROM meals ")
+
        Maxid = Maxidrows[0]["id"]
        newfilename = UPLOAD_FOLDER+"/"+str(Maxid) +".jpg"
        os.rename(f,newfilename)
-       unitsrows = db.execute("SELECT description FROM units")
        ###########Diaa##########
        users = db.execute("SELECT * FROM users")
        cook_user = db.execute("SELECT username FROM users where id=:u_id",u_id=session["user_id"])
@@ -201,7 +174,7 @@ def addsug():
                msg = Message(sender='it.diaaa@gmail.com',recipients=[allUsers], html=message,subject=subject)
                mail.send(msg)
        ###########Diaa##########
-       return render_template("materialdetails.html",units =unitsrows ,mealid=Maxid, mealName=mealName,mealDes=mealDes,mealDate=mealDate,cook=cook_user[0]['username'])
+       return render_template("materialdetails.html",units = getUnits() ,mealid=Maxid, mealName=mealName,mealDes=mealDes,mealDate=mealDate,cook=cook_user[0]['username'])
    else:
        return render_template("addsug.html")
 
@@ -256,14 +229,6 @@ def register():
         # Query if there is any similar username
         rows = db.execute("SELECT * FROM users WHERE username = :username",
                           username=username)
-        ########Diaa##############################
-        time=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        msg = Message(' Kitchen App Service !! ' + time,sender='it.diaaa@gmail.com', recipients =[email])
-        msg.html=render_template('/welcomeuser.html',user_name=username)
-        mail.send(msg)
-        ########Diaa##############################
-
-        # Ensure username not exists
         if len(rows) == 1:
             return apology("username taken", 400)
 
@@ -271,19 +236,18 @@ def register():
         if password != password_confirmation:
             return apology("passwords don't match", 400)
 
-        # Add the user into the users table in database
-        rows = db.execute("INSERT INTO users (firstName, lastName, eMail, phoneNumber, username, hash) VALUES (:firstName, :lastName, :eMail, :phoneNumber, :username, :hash)",
-                          firstName=first_name, lastName=last_name, eMail=email, phoneNumber=phone_number, username=username, hash=hashed_password)
 
-        # Remember which user has logged in
-        session["user_id"] = rows
+        # Add the user into the users table in database
+        session["user_id"] = addUser(first_name, last_name, email, phone_number, username, hashed_password)
+
+        sendWellcomdeMail(email,username)
 
         # Redirect user to home page
         return redirect("/")
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:
-        return render_template("regispater.html")
+        return render_template("register.html")
 
 
 @app.route("/removeParticipate", methods=["GET", "POST"])
