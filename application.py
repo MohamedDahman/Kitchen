@@ -8,7 +8,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import apology
 import os
 from helpers import login_required,getOwner,mealProcess,isParticipant,getParticipantKind , getCommunities, getUnits,getMealParticipant
-from helpers  import getParticipantCount,getAllMealsAfterToday , addUser , sendWellcomdeMail
+from helpers  import getParticipantCount, getAllMealsAfterToday, addUser, sendWellcomdeMail
 import datetime
 from helpers import login_required
 from tempfile import mkdtemp
@@ -120,7 +120,7 @@ def login():
 
 @app.route("/listmeal", methods=["GET", "POST"])
 def listmeal():
-        return render_template("master.html", meals = getAllMealsAfterToday() , communities = getCommunities)
+        return render_template("master.html", meals =[getAllMealsAfterToday()] , communities = [getCommunities()])
 
 
 @app.route("/participant", methods=["GET", "POST"])
@@ -296,9 +296,6 @@ def addCleaner():
     community = 3 # 	Cooker Helper
     mealProcess(mealId, community, currentUserId)
     return redirect("/")
-
-
-
 
 
 @app.route("/addComunity", methods=["GET", "POST"])
