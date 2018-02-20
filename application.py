@@ -64,6 +64,10 @@ def index():
         return render_template("index.html")
 
 
+@app.route("/rating1")
+def rating():
+        return render_template("rating1.html")
+
 @app.route("/logout")
 def logout():
     """Log user out"""
@@ -93,6 +97,7 @@ def login():
     """Log user in"""
 
     session.clear()
+
 
     if request.method == "POST":
         if not request.form.get("username"):
