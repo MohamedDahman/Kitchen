@@ -4,27 +4,56 @@
 {% endblock %}
 {% block main %}
 
+		<div id="art-page-background-glare">
+			<div id="art-page-background-glare-image">
+				<div id="art-main">
+				  	<div class="art-sheet">
+						<div class="art-sheet-tl"></div>
+						<div class="art-sheet-tr"></div>
+						<div class="art-sheet-bl"></div>
+						<div class="art-sheet-br"></div>
+						<div class="art-sheet-tc"></div>
+						<div class="art-sheet-bc"></div>
+						<div class="art-sheet-cl"></div>
+						<div class="art-sheet-cr"></div>
+						<div class="art-sheet-cc"></div>
+						<div class="art-sheet-body">
+						<ul class="art-menu">
+						<li><a href="./" class="active"><span class="l"> </span><span class="r"> </span><span class="t">Home</span></a></li>
+						<li><a href="/addsug"><span class="l"> </span><span class="r"> </span><span class="t">Suggesions</span></a></li>
+						<li><a href="/units"><span class="l"> </span><span class="r"> </span><span class="t">Shopper</span></a></li>
+						<li><a href="/units"><span class="l"> </span><span class="r"> </span><span class="t">History</span></a></li>
+						<li><a href="./about-us.html"><span class="l"> </span><span class="r"> </span><span class="t">About us</span></a></li>
+						<li><a href="/listmeal"><span class="l"> </span><span class="r"> </span><span class="t">Meal List</span></a></li>
+						</ul>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
  <form action="/addsug" method="post" enctype="multipart/form-data" >
    <table class ="table table-striped">
       <tr>
-         <td><h1>Meal Name</h1></td>
-         <td align="left"><input type="text" id="fname" name="name" style="width:700px;" placeholder="Name of the Meal.."></td>
+         <td><h3 class="t">Name</h3></td>
+         <td colspan=3 align="left"><input type="text" id="fname" name="name" style="width:500px;" placeholder="Name of the Meal.."></td>
       </tr>
       <tr>
-         <td><h1>Meal description</h1></td>
-         <td align="left"><textarea id="subject" name="description" style="width:700px;" placeholder="Meal Description" style="height:120px"></textarea></td>
+         <td><h3 class="t">Description</h3></td>
+         <td colspan=3 align="left"><textarea id="subject" name="description" style="width:500px;" placeholder="Meal Description" style="height:120px"></textarea></td>
       </tr>
-      <tr><td><h1>Date</h1></td>
-      <td align="left"><input type="date" id="fname" name="date"></td></tr>
-
-
-         <tr><td><h1>Image file</h1></td>
-         <td align="left"><span class="btn btn-default btn-file"> Browse <input type="file" name="image"></td></tr>
+      <tr><td><h3 class="t">Date</h3></td>
+      <td align="left"><input type="date" id="fname" name="date"></td>
+      <td><h1>Image</h1></td>
+      <td align="left"><span class="btn btn-default btn-file"> <input type="file" name="image"></td></tr>
       <tr>
-         <td>      <input type="submit" value="Submit"></td></tr>
+      <td colspan=4><input type="submit" value="Submit"></td>
+      </tr>
+
    </table>
 
 
  </form>
-
 {% endblock %}

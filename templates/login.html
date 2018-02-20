@@ -9,6 +9,7 @@
 		<!--[if IE 7]><link rel="stylesheet" href="./style.ie7.css" type="text/css" media="screen" /><![endif]-->
 		<script type="text/javascript" src="./static/jquery.js"></script>
 		<script type="text/javascript" src="./static/script.js"></script>
+
 	</head>
 	<body>
 			<div id="art-page-background-glare">
@@ -18,11 +19,11 @@
 
   <div class="login-page">
   <div class="form">
-
     <form class="login-form" acion="/login" method="post">
-      <input type="text" name=username placeholder="username"/>
-      <input type="password" name=password placeholder="password"/>
+      <input type="text" name=username placeholder="username" required/>
+      <input type="password" name=password placeholder="password" required/>
       <button class="btn btn-primary" type="submit">login</button>
+
       <p class="message">Not registered? <a href="/register">Create an account</a></p>
     </form>
 
@@ -34,8 +35,8 @@
 
 		</div>
 		</div>
-     </div>
-			</div>
+    </div>
+		</div>
 
 
 
