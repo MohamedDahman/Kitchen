@@ -5,6 +5,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>Home</title>
 		<link rel="stylesheet" href="./static/style.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 		<!--[if IE 6]><link rel="stylesheet" href="./style.ie6.css" type="text/css" media="screen" /><![endif]-->
 		<!--[if IE 7]><link rel="stylesheet" href="./style.ie7.css" type="text/css" media="screen" /><![endif]-->
 		<script type="text/javascript" src="./static/jquery.js"></script>
@@ -31,13 +32,17 @@
 								<div class="r"></div>
 								<ul class="art-menu">
 									{% if session.user_id %}
-									<li><a href="./index.html" class="active"><span class="l"> </span><span class="r"> </span><span class="t">Home</span></a></li>
+									<!-- <li><a href="./index.html" class="active"><span class="l"> </span><span class="r"> </span><span class="t">Home</span></a></li>-->
 									<li><a href="/addsug"><span class="l"> </span><span class="r"> </span><span class="t">Suggesions</span></a></li>
 									<li><a href="/units"><span class="l"> </span><span class="r"> </span><span class="t">Shopper</span></a></li>
 									<li><a href="/units"><span class="l"> </span><span class="r"> </span><span class="t">History</span></a></li>
 									<li><a href="./about-us.html"><span class="l"> </span><span class="r"> </span><span class="t">About us</span></a></li>
 									<li><a href="/listmeal"><span class="l"> </span><span class="r"> </span><span class="t">Meal List</span></a></li>
-                                    <li><a href="./contact-us.html" class="active"><span class="l"> </span><span class="r"> </span><span class="t">Log out</span></a></li>
+                  <li><a href="./rating1" class="active"><span class="l"> </span><span class="r"> </span><span class="t">Rating</span></a></li>
+                 <li><a href="./contact-us.html" class="active"><span class="l"> </span><span class="r"> </span><span class="t">Log out</span></a></li>
+               
+                  <li><a href="/logout" class="active"><span class="l"> </span><span class="r"> </span><span class="t">Log out</span></a></li>
+
                                     {% else %}
 										<li><a href="/login"><span class="l"> </span><span class="r"> </span><span class="t">Log in</span></a></li>
 										<li><a href="/register"><span class="l"> </span><span class="r"> </span><span class="t">Register</span></a></li>
@@ -57,24 +62,45 @@
 							<div class="art-content-layout">
 								<div class="art-content-layout-row">
 									<div class="art-layout-cell art-sidebar1">
-										<div class="art-vmenublock">
-											<div class="art-vmenublock-body">
-												<div class="art-vmenublockheader">
-													<h3 class="t">Vertical Menu</h3>
-												</div>
+										<div>
 
-												<div class="art-vmenublockcontent">
-													<div class="art-vmenublockcontent-body">
-														<ul class="art-vmenu">
-															<li><a href="./home.html" class="active"><span class="l"> </span><span class="r"> </span><span class="t">Home</span></a></li>
-															<li><a href="./Suggesion.html"><span class="l"> </span><span class="r"> </span><span class="t">Suggesion</span></a></li>
-															<li><a href="./units.html"><span class="l"> </span><span class="r"> </span><span class="t">Shopper</span></a></li>
-															<li><a href="./units.html"><span class="l"> </span><span class="r"> </span><span class="t">History</span></a></li>
-															<li><a href="./about-us.html"><span class="l"> </span><span class="r"> </span><span class="t">About us</span></a></li>
-															<li><a href="./contact-us.html"><span class="l"> </span><span class="r"> </span><span class="t">Contact us</span></a></li>
+                                   {% if session.user_id %}
+                                         <div class="w3-content w3-display-container" style ="border: 4px solid orange;">
 
-														</ul>
+                                         </style>
+						                       <img class="mySlides" src="/static/1.jpeg" style="width:100% ; height:450px">
+						                       <img class="mySlides" src="/static/2.jpeg" style="width:100% ; height:450px">
+						                       <img class="mySlides" src="/static/3.jpg" style="width:100% ; height:450px">
+						                       <img class="mySlides" src="/static/4.jpg" style="width:100% ; height:450px">
+						                       <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+						                       <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+						                  </div>
+
+                             <script>
+									var slideIndex = 1;
+									showDivs(slideIndex);
+
+									function plusDivs(n) {
+									  showDivs(slideIndex += n);
+									}
+
+									function showDivs(n) {
+									  var i;
+									  var x = document.getElementsByClassName("mySlides");
+									  if (n > x.length) {slideIndex = 1}
+									  if (n < 1) {slideIndex = x.length}
+									  for (i = 0; i < x.length; i++) {
+									     x[i].style.display = "none";
+									  }
+									  x[slideIndex-1].style.display = "block";
+									}
+							</script>
+							   {% else %}
+
+
+
 														<div class="cleared"></div>
+
 													</div>
 												</div>
 												<div class="cleared"></div>
@@ -121,6 +147,7 @@
 									</div>
 								</div>
 							</div>
+
 							<div class="cleared"></div>
 							<div class="art-footer">
 								<div class="art-footer-t"></div>
@@ -143,5 +170,6 @@
 				</div>
 			</div>
 		</div>
+		{% endif %}
 	</body>
 </html>

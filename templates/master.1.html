@@ -1,0 +1,155 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+		<div id="art-page-background-glare">
+			<div id="art-page-background-glare-image">
+				<div id="art-main">
+				  	<div class="art-sheet">
+						<div class="art-sheet-tl"></div>
+						<div class="art-sheet-tr"></div>
+						<div class="art-sheet-bl"></div>
+						<div class="art-sheet-br"></div>
+						<div class="art-sheet-tc"></div>
+						<div class="art-sheet-bc"></div>
+						<div class="art-sheet-cl"></div>
+						<div class="art-sheet-cr"></div>
+						<div class="art-sheet-cc"></div>
+						<div class="art-sheet-body">
+
+
+
+    <table class="table table-striped" style="width:100%">
+      <tr>
+        <th width="45%"><div class="art-vmenublockheader"><h3 class="t">Data</h3></div></th>
+        <th width="15%"><div class="art-vmenublockheader"><h3 class="t">Participate Type</h3></div></th>
+        <th width="40%"><div class="art-vmenublockheader"><h3 class="t">Image</h3></div></th>
+
+      </tr>
+    {% for meal in meals %}
+      <tr>
+        <td>
+                    <table >
+                      <tr >
+                        <td><div class="art-vmenublockheader"><h3 class="t">Name</h3></div></td>
+                        <td><div class="art-vmenublockheader"><h3 class="t">{{ meal.name }}</h3></div></td>
+                      </tr>
+                      <tr>
+                        <td><div class="art-vmenublockheader"><h3 class="t">Suggestion Owner</h3></div></td>
+                        <td width="180"><div class="art-vmenublockheader"><h3 class="t">{{ meal.username }}</h3></div></td>
+                      </tr>
+                      <tr>
+                        <td><div class="art-vmenublockheader"><h3 class="t">Date</h3></div></td>
+                        <td width="180"><div class="art-vmenublockheader"><h3 class="t">{{ meal.date }}</h3></div></td>
+                      </tr>
+                      </td>
+                      </table >
+      </td>
+      <td>
+                <table>
+                  <form method="POST" action="/addComunity">
+                  <tr>
+                    <td>
+                    <select class="form-control" name="community">
+                    {% for community in communities %}
+                    <option value="{{ community.id }}">{{ community.description }}</option>
+                    {% endfor %}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+
+                    {% if isParticipant == 0 %}
+                        <div class="form-group">
+                        <button class="btn btn-primary"  name="addComunity" value={{meal.id}} type="submit"><div class="art-vmenublockheader"><h3 class="t">Add me</h3></div></button>
+                        </div>
+                    {% endif %}
+                    {% if isParticipant != 1 %}
+                        <div class="form-group">
+                        <button class="btn btn-primary"  name="addComunity" value={{meal.id}} type="submit"><div class="art-vmenublockheader"><h3 class="t">remove me</h3></div></button>
+                        </div>
+                    {% endif %}
+
+
+                  </tr>
+      </td>
+      </form>
+      </table>
+
+              <td><img src="/static/{{meal.id}}.jpg"  alt="{{image}}" style="width:150px; height:150px"></td>
+
+      </tr>
+      <tr><td colspan=3><div class="art-vmenublockheader"><h3 class="t">Participate List</h3></div></td></tr>
+      <tr>
+
+
+
+      <td colspan=3>
+        <span id="DD"></span>
+             <input class="form-control" name=mealidtext id=mealidtext value = {{meal.id}} placeholder="sympol" type="text" hidden />
+             <script src="js/jquery-ui.min.js" type="text/javascript"></script>
+             <script type="text/javascript">
+                        jQuery.browser = {};
+                        (function () {
+                          jQuery.browser.msie = false;
+                        jQuery.browser.version = 0;
+                            if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                      jQuery.browser.msie = true;
+                      jQuery.browser.version = RegExp.$1;
+                  }
+              })();
+
+
+                    let meal =  document.getElementById("mealidtext").value ;
+
+                    let parameters = {
+                    mealId: meal };
+                    let counter = 0;
+                    $.getJSON("/participant", parameters , function(data,jqXHR) {
+                    let htmltags='<table>';
+                    htmltags += "<tr>";
+                    for(let index =0 ; index<data.length ; index++)
+                    {
+
+                      htmltags += "<td width='10%'><div class='art-vmenublockheader'><h3 class='t'>"+data[index].username+"</h3></div></td>";
+                      counter  += 1;
+                      if (counter == 8 )
+                      {
+                          htmltags += "</tr>";
+                          counter  = 0;
+                          htmltags += "<tr>";
+                      }
+
+                    }
+
+                    if (counter<8)
+                    {
+                        for(let index =0 ; index<counter-1 ; index++)
+                        {
+                          htmltags += "<td width='10%'><div class='art-vmenublockheader'><h3 class='t'></h3></div></td>";
+                        }
+                          htmltags += "</tr>";
+                    }
+                      htmltags += "</table>";
+                    document.getElementById("DD").innerHTML = htmltags;
+
+                    });
+
+              </script>
+
+      </td>
+      </tr>
+
+
+    {% endfor %}
+
+    </table>
+</div>
+</div>
+</div>
+</div>
+
+{% endblock %}
