@@ -1,7 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US" xml:lang="en">
 	<head>
-		<!--  Created by Artisteer v3.0.0.32906  Base template (without user's data) checked by http://validator.w3.org : "This page is valid XHTML 1.0 Transitional"  -->
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>Home</title>
 		<link rel="stylesheet" href="./static/style.css" type="text/css" media="screen" />
@@ -14,7 +13,6 @@
 		<div id="art-page-background-glare">
 			<div id="art-page-background-glare-image">
 				<div id="art-main">
-
 					<div class="art-sheet">
 						<div class="art-sheet-tl"></div>
 						<div class="art-sheet-tr"></div>
@@ -33,10 +31,11 @@
 									{% if session.user_id %}
 									<!-- <li><a href="./index.html" class="active"><span class="l"> </span><span class="r"> </span><span class="t">Home</span></a></li>-->
 									<li><a href="/addsug"><span class="l"> </span><span class="r"> </span><span class="t">Suggesions</span></a></li>
-									<li><a href="/units"><span class="l"> </span><span class="r"> </span><span class="t">Shopper</span></a></li>
-									<li><a href="/units"><span class="l"> </span><span class="r"> </span><span class="t">History</span></a></li>
-									<li><a href="./about-us.html"><span class="l"> </span><span class="r"> </span><span class="t">About us</span></a></li>
 									<li><a href="/listmeal"><span class="l"> </span><span class="r"> </span><span class="t">Meal List</span></a></li>
+									<li><a href="/units"><span class="l"> </span><span class="r"> </span><span class="t">History</span></a></li>
+									<li><a href="/units"><span class="l"> </span><span class="r"> </span><span class="t">Units</span></a></li>
+									<li><a href="./about-us.html"><span class="l"> </span><span class="r"> </span><span class="t">About us</span></a></li>
+
                                     <li><a href="/logout" class="active"><span class="l"> </span><span class="r"> </span><span class="t">Log out</span></a></li>
                                     {% else %}
 										<li><a href="/login"><span class="l"> </span><span class="r"> </span><span class="t">Log in</span></a></li>

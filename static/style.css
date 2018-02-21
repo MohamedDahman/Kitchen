@@ -467,6 +467,15 @@ table.position
   min-height: 13px;
 }
 
+.art-sheet_mer
+{
+  position: relative;
+  margin: 0 auto;
+  min-width: 13px;
+  min-height: 13px;
+  margin-top: -80px;
+}
+
 .art-sheet-body
 {
   position: relative;
