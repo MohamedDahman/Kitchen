@@ -90,7 +90,9 @@ for code in default_exceptions:
     app.errorhandler(code)(errorhandler)
 
 
-
+@app.route("/about", methods=["GET", "POST"])
+def about():
+    return render_template("about.html")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
