@@ -29,8 +29,10 @@ if os.environ.get('WERKZEUG_RUN_MAIN') != 'true':
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_SSL'] = True
-app.config['MAIL_USERNAME'] = 'it.diaaa@gmail.com'
-app.config['MAIL_PASSWORD'] = 'd123321d'
+app.config['MAIL_USERNAME'] = ''
+app.config['MAIL_PASSWORD'] = ''
+#app.config['MAIL_USERNAME'] = 'it.diaaa@gmail.com'
+#app.config['MAIL_PASSWORD'] = 'd123321d'
 
 mail = Mail(app)
 
@@ -133,7 +135,7 @@ def getAllMealsAfterToday():
             listRowData.append(rowData)
             currentRow = currentRow + 1
 
-        return
+        return listRowData
 
 
 def addUser(first_name,last_name,email,phone_number,username,hashed_password):
@@ -142,9 +144,34 @@ def addUser(first_name,last_name,email,phone_number,username,hashed_password):
     return rows
 
 
-
 def sendWellcomdeMail(email,username):
     time=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     msg = Message(' Kitchen App Service !! ' + time,sender='it.diaaa@gmail.com', recipients =[email])
     msg.html=render_template('/welcomeuser.html',user_name=username)
     mail.send(msg)
+
+
+def addMeals(mealName, mealDes, mealDate , userId):
+    suggestion = db.execute("INSERT INTO meals (name, description, date, userId) VALUES (:name, :description, :mealDate ,:userId)",
+                            name = mealName, description = mealDes, mealDate = mealDate , userId = userId )
+
+def getMaxMealId():
+    mealId = db.execute("select max(id) as maxId from meals")
+    maxId = mealId[0]["maxId"]
+    return maxId
+
+
+def sendMailInvitation(mealId, mealName, mealDes , mealDate):
+       cook_user = getOwner(mealId)
+       users = db.execute("SELECT * FROM users")
+       a_users =[]
+       allUsers =''
+       for i in range(len(users)):
+           allUsers = str(users[i]['eMail'])
+           print(allUsers)
+           with mail.connect() as conn:
+               message = render_template("sug_email.html",mealName=mealName,mealDes=mealDes,mealDate=mealDate,cook=cook_user[0]['username'],newfilename=newfilename)
+               subject = "hello, %s" % "all"
+               msg = Message(sender='it.diaaa@gmail.com',recipients=[allUsers], html=message,subject=subject)
+               mail.send(msg)
+

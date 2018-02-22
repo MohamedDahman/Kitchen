@@ -8,7 +8,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import apology
 import os
 from helpers import login_required,getOwner,mealProcess,isParticipant,getParticipantKind , getCommunities, getUnits,getMealParticipant
-from helpers  import getParticipantCount, getAllMealsAfterToday, addUser, sendWellcomdeMail
+from helpers  import getParticipantCount, getAllMealsAfterToday, addUser, sendWellcomdeMail, addMeals, getMaxMealId , sendMailInvitation
 import datetime
 from helpers import login_required
 from tempfile import mkdtemp
@@ -29,8 +29,8 @@ if os.environ.get('WERKZEUG_RUN_MAIN') != 'true':
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_SSL'] = True
-app.config['MAIL_USERNAME'] = 'it.diaaa@gmail.com'
-app.config['MAIL_PASSWORD'] = 'd123321d'
+app.config['MAIL_USERNAME'] = ''
+app.config['MAIL_PASSWORD'] = ''
 
 mail = Mail(app)
 
@@ -121,11 +121,9 @@ def login():
 
 
 
-
-
 @app.route("/listmeal", methods=["GET", "POST"])
 def listmeal():
-        return render_template("master.html", meals =[getAllMealsAfterToday()] , communities = [getCommunities()])
+        return render_template("master.html", meals =getAllMealsAfterToday() , communities = getCommunities())
 
 
 @app.route("/participant", methods=["GET", "POST"])
@@ -144,42 +142,23 @@ def addsug():
        mealDes = request.form.get("description")
        mealDate = request.form.get("date")
 
-       mealId = db.execute("select max(id) as maxId from meals")
-       maxId = mealId[0]["maxId"] + 1
-       currentUserId = session["maxId"]
+
+       mealId = getMaxMealId()
+       maxId = mealId + 1;
+       currentUserId = session["user_id"]
        community = 1 # 	Cooker
        mealProcess(mealId, community, currentUserId)
-
-
+       addMeals(mealName, mealDes, mealDate , session["user_id"])
        file = request.files['image']
        f = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-
-       # add your custom code to check that the uploaded file is a valid image and not a malicious file (out-of-scope for this post)
        file.save(f)
 
-
-       suggestion = db.execute("INSERT INTO meals (name, description, date, userId) VALUES (:mName, :mDescription, :mDate ,:user_id)",
-                           mName=mealName, mDescription=mealDes, mDate=mealDate , user_id=session["user_id"]  )
-       Maxidrows = db.execute("SELECT max(id) as id FROM meals ")
-
-       Maxid = Maxidrows[0]["id"]
-       newfilename = UPLOAD_FOLDER+"/"+str(Maxid) +".jpg"
+       newfilename = UPLOAD_FOLDER+"/"+str(maxId) +".jpg"
        os.rename(f,newfilename)
-       ###########Diaa##########
-       users = db.execute("SELECT * FROM users")
-       cook_user = db.execute("SELECT username FROM users where id=:u_id",u_id=session["user_id"])
-       a_users =[]
-       allUsers =''
-       for i in range(len(users)):
-           allUsers = str(users[i]['eMail'])
-           print(allUsers)
-           with mail.connect() as conn:
-               message = render_template("sug_email.html",mealName=mealName,mealDes=mealDes,mealDate=mealDate,cook=cook_user[0]['username'],newfilename=newfilename)
-               subject = "hello, %s" % "all"
-               msg = Message(sender='it.diaaa@gmail.com',recipients=[allUsers], html=message,subject=subject)
-               mail.send(msg)
-       ###########Diaa##########
-       return render_template("materialdetails.html",units = getUnits() ,mealid=Maxid, mealName=mealName,mealDes=mealDes,mealDate=mealDate,cook=cook_user[0]['username'])
+
+       sendMailInvitation(mealId, mealName, mealDes , mealDate)
+
+       return render_template("materialdetails.html",units = getUnits() ,mealid=maxId, mealName=mealName,mealDes=mealDes,mealDate=mealDate,cook=getOwner(mealId))
    else:
        return render_template("addsug.html")
 
@@ -313,3 +292,9 @@ def addComunity():
     if isParticipant(mealId, currentUserId) == 0:
         mealProcess(mealId, community, currentUserId)
     return redirect("listmeal")
+
+
+@app.route("/units", methods=["GET", "POST"])
+@login_required
+def units():
+    return redirect("units")

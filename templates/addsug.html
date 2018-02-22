@@ -3,12 +3,7 @@
    suggestion
 {% endblock %}
 {% block main %}
-
-		<div id="art-page-background-glare">
-			<div id="art-page-background-glare-image">
-				<div id="art-main">
-				  	<div class="art-sheet">
-						<div class="art-sheet-tl"></div>
+					    <div class="art-sheet-tl"></div>
 						<div class="art-sheet-tr"></div>
 						<div class="art-sheet-bl"></div>
 						<div class="art-sheet-br"></div>
@@ -18,26 +13,23 @@
 						<div class="art-sheet-cr"></div>
 						<div class="art-sheet-cc"></div>
 						<div class="art-sheet-body">
+						<div class="art-nav">
+						<div class="l"></div>
+						<div class="r"></div>
 						<ul class="art-menu">
 						<li><a href="./" class="active"><span class="l"> </span><span class="r"> </span><span class="t">Home</span></a></li>
-						<li><a href="/addsug"><span class="l"> </span><span class="r"> </span><span class="t">Suggesions</span></a></li>
 						<li><a href="/units"><span class="l"> </span><span class="r"> </span><span class="t">Shopper</span></a></li>
 						<li><a href="/units"><span class="l"> </span><span class="r"> </span><span class="t">History</span></a></li>
 						<li><a href="./about-us.html"><span class="l"> </span><span class="r"> </span><span class="t">About us</span></a></li>
 						<li><a href="/listmeal"><span class="l"> </span><span class="r"> </span><span class="t">Meal List</span></a></li>
 						</ul>
-
-</div>
-</div>
-</div>
-</div>
-</div>
+						</div>
 
 
  <form action="/addsug" method="post" enctype="multipart/form-data" >
    <table class ="table table-striped">
       <tr>
-         <td><h3 class="t">Name</h3></td>
+         <td><h5 class="t">Name</h3></td>
          <td colspan=3 align="left"><input type="text" id="fname" name="name" style="width:500px;" placeholder="Name of the Meal.."></td>
       </tr>
       <tr>
@@ -46,7 +38,7 @@
       </tr>
       <tr><td><h3 class="t">Date</h3></td>
       <td align="left"><input type="date" id="fname" name="date"></td>
-      <td><h1>Image</h1></td>
+      <td><h3 class="t">Image</h3></td>
       <td align="left"><span class="btn btn-default btn-file"> <input type="file" name="image"></td></tr>
       <tr>
       <td colspan=4><input type="submit" value="Submit"></td>
@@ -56,4 +48,5 @@
 
 
  </form>
+</div>
 {% endblock %}
