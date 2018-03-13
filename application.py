@@ -300,3 +300,53 @@ def addComunity():
 @login_required
 def units():
     return redirect("units")
+
+
+
+@app.route("/configer", methods=["GET", "POST"])
+def configer():
+    """configer user"""
+
+
+    # User reached route via POST (as by submitting a form via POST)
+    if request.method == "POST":
+
+        Mail_Server = request.form.get("MailServer")
+        Mail_Port = request.form.get("MailPort")
+        Mail_Use_Ssl = request.form.get("MailUseSsl")
+        Mail_Username = request.form.get("MailUsername")
+        Mail_Password = request.form.get("MailPassword")
+
+        hashed_password = generate_password_hash(Mail_Password)
+
+        # Ensure mail server was submitted
+        if not Mail_Server:
+            return apology("must provide mail server", 400)
+
+        # Ensure mail port was submitted
+        if not Mail_Port:
+            return apology("must provide mail port", 400)
+
+        # Ensure mail Use Ssl was submitted
+        if not Mail_Use_Ssl:
+            return apology("must provide mail use ssl", 400)
+
+        # Ensure mail username was submitted
+        if not Mail_Username:
+            return apology("must provide mail username", 400)
+
+        # Ensure mail password was submitted
+        if not Mail_Password:
+            return apology("must provide mail password", 400)
+
+
+        rows = db.execute("SELECT * FROM mailconfigration")
+
+
+        # Redirect user to home page
+        return render_template("mailConfigration.html", Mail_Server = rows[0]["MAIL_SERVER"] ,  Mail_Port = rows[0]["MAIL_PORT"], Mail_Use_Ssl = rows[0]["MAIL_USE_SSL"] , Mail_Username = rows[0]["MAIL_USERNAME"] , Mail_Password = rows[0]["MAIL_PASSWORD"])
+
+    # User reached route via GET (as by clicking a link or via redirect)
+    else:
+        return render_template("mailConfigration.html")
+
