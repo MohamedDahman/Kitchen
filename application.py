@@ -239,7 +239,6 @@ def register():
 @app.route("/removeParticipate", methods=["GET", "POST"])
 @login_required
 def removeParticipate():
-    print("me")
     return redirect("/")
 
 
@@ -299,7 +298,22 @@ def addComunity():
 @app.route("/units", methods=["GET", "POST"])
 @login_required
 def units():
-    return redirect("units")
+      if request.method == "POST":
+        units = request.form.get("description")
+        if not units:
+                return apology("must provide valid units", 400)
+        db.execute("INSERT INTO units (description) VALUES (:description)",
+                   description=units)
+        units = db.execute("SELECT * FROM units")
+
+        return render_template("units.html", units=units)
+
+      else:
+        units = db.execute("SELECT * FROM units")
+        return render_template("units.html", units=units)
+
+
+##    return redirect("units")
 
 
 
@@ -355,4 +369,3 @@ def configer():
             return render_template("mailConfigration.html", Mail_Server = rows[0]["MAIL_SERVER"] ,  Mail_Port = rows[0]["MAIL_PORT"], Mail_Use_Ssl = rows[0]["MAIL_USE_SSL"] , Mail_Username = rows[0]["MAIL_USERNAME"] , Mail_Password = rows[0]["MAIL_PASSWORD"])
         else:
             return render_template("mailConfigration.html", Mail_Server = "" ,  Mail_Port = "" , Mail_Use_Ssl = "" , Mail_Username = "" , Mail_Password = "")
-
