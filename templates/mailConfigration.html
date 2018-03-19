@@ -21,11 +21,11 @@
   <div class="form">
 
     <form class="login-form" acion="/configer" method="post">
-    	<input type="text" name="MailServer" placeholder="Mail Server"/>
-    	<input type="integers" name="MailPort" placeholder="Mail Port"/>
-    	<input type="integers" name="MailUseSsl" placeholder="MAIL USE SSL"/>
-    	<input type="text" name="MailUsername" placeholder="Mail Username"/>
-      <input type="password" name="MailPassword" placeholder="Mail Password"/>
+    	<input type="text" name="MailServer" placeholder="Mail Server" value ="{{Mail_Server}}" />
+    	<input type="integers" name="MailPort" placeholder="Mail Port"  value ="{{Mail_Port}}"/>
+    	<input type="integers" name="MailUseSsl" placeholder="MAIL USE SSL" value ="{{Mail_Use_Ssl}}"/>
+    	<input type="text" name="MailUsername" placeholder="Mail Username" value ="{{Mail_Username}}"/>
+      <input type="password" name="MailPassword" placeholder="Mail Password" value ="{{Mail_Password}}"/>
       <button class="btn btn-primary" type="submit">Configer</button>
 
     </form>

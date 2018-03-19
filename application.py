@@ -341,12 +341,18 @@ def configer():
 
 
         rows = db.execute("SELECT * FROM mailconfigration")
-
-
-        # Redirect user to home page
-        return render_template("mailConfigration.html", Mail_Server = rows[0]["MAIL_SERVER"] ,  Mail_Port = rows[0]["MAIL_PORT"], Mail_Use_Ssl = rows[0]["MAIL_USE_SSL"] , Mail_Username = rows[0]["MAIL_USERNAME"] , Mail_Password = rows[0]["MAIL_PASSWORD"])
-
-    # User reached route via GET (as by clicking a link or via redirect)
+        if (len(rows)==0):
+               db.execute("INSERT INTO mailconfigration(Mail_Server,Mail_Port,Mail_Use_Ssl,Mail_Username,Mail_Password)values(:MailServer, :MailPort, :MailUseSsl, :MailUsername, :MailPassword)",
+                                  MailServer = request.form.get("MailServer"),MailPort = request.form.get("MailPort"),MailUseSsl = request.form.get("MailUseSsl"),  MailUsername = request.form.get("MailUsername"), MailPassword = hashed_password)
+        else:
+            db.execute("UPDATE mailconfigration SET Mail_Server= :MailServer ,Mail_Port=:MailPort,Mail_Use_Ssl=:MailUseSsl,Mail_Username=:MailUsername,Mail_Password=:MailPassword ",
+                                  MailServer = request.form.get("MailServer"),MailPort = request.form.get("MailPort"),MailUseSsl = request.form.get("MailUseSsl"),  MailUsername = request.form.get("MailUsername"), MailPassword = hashed_password)
+        # User reached route via GET (as by clicking a link or via redirect)
+        return redirect("/")
     else:
-        return render_template("mailConfigration.html")
+        rows = db.execute("SELECT * FROM mailconfigration")
+        if (len(rows)!=0):
+            return render_template("mailConfigration.html", Mail_Server = rows[0]["MAIL_SERVER"] ,  Mail_Port = rows[0]["MAIL_PORT"], Mail_Use_Ssl = rows[0]["MAIL_USE_SSL"] , Mail_Username = rows[0]["MAIL_USERNAME"] , Mail_Password = rows[0]["MAIL_PASSWORD"])
+        else:
+            return render_template("mailConfigration.html", Mail_Server = "" ,  Mail_Port = "" , Mail_Use_Ssl = "" , Mail_Username = "" , Mail_Password = "")
 
