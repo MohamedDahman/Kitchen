@@ -175,3 +175,23 @@ def sendMailInvitation(mealId, mealName, mealDes , mealDate):
                msg = Message(sender='it.diaaa@gmail.com',recipients=[allUsers], html=message,subject=subject)
                mail.send(msg)
 
+
+
+def getMealNotRatet(userId):
+    rowData = {}  # this is a dict
+    listRowData = []  # this is list
+
+    rows = db.execute("select * from Meals where id not in (select mealid from mealRating where userId =:userId)", userId=userId)
+
+    currentRow = 0
+    sumtotal = 0
+    while currentRow <= len(rows) - 1:
+            rowData = {}
+            rowData['id'] = rows[currentRow]["id"]
+            rowData['name'] = rows[currentRow]["name"]
+            rowData['date'] = rows[currentRow]["date"]
+            rowData['cooker'] = getOwner(rows[currentRow]["id"])
+            listRowData.append(rowData)
+            currentRow = currentRow + 1
+
+    return listRowData

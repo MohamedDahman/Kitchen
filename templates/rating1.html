@@ -1,132 +1,88 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US" xml:lang="en">
 	<head>
-		<!--  Created by Artisteer v3.0.0.32906  Base template (without user's data) checked by http://validator.w3.org : "This page is valid XHTML 1.0 Transitional"  -->
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-
-        <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-
-        <!-- documentation at http://getbootstrap.com/docs/4.0/, alternative themes at https://bootswatch.com/4-alpha/ -->
+		<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet"/>
-
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-
-
 		<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 		<title>Kitchen Application</title>
 		<link rel="stylesheet" href="././static/style.css" type="text/css" media="screen" />
 		<!--[if IE 6]><link rel="stylesheet" href="./style.ie6.css" type="text/css" media="screen" /><![endif]-->
 		<!--[if IE 7]><link rel="stylesheet" href="./style.ie7.css" type="text/css" media="screen" /><![endif]-->
 		<script type="text/javascript" src="./static/jquery.js"></script>
+		<script type="text/javascript" src="./static/script1.js"></script>
 		<script type="text/javascript" src="./static/script.js"></script>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title></title>
-
-
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+		<script src="./static/emotion-ratings.js"></script>
 
 <style>
 body { color:#fff; font-family:'Roboto'; text-align:center;}
-.container { margin:150px auto;}
+.container {margin:25px auto;}
 h1 { margin-bottom:100px;}
 </style>
-
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="./static/emotion-ratings.js"></script>
 	</head>
-
 	<body>
-
-
-<div  style=" padding:30px ;  margin:auto">
-
-	<div style=" width: 950px; height:560px;  margin:auto; background-color:LightGray; padding:30px ; border: 2px solid #A9F5E1; border-radius: 25px">
-
-  	 <center>
-    	 <table>
+		<div id="art-page-background-glare">
+			<div id="art-page-background-glare-image">
+				<div id="art-main">
+					<div class="art-sheet">
+						<div class="art-sheet-tl"></div>
+						<div class="art-sheet-tr"></div>
+						<div class="art-sheet-bl"></div>
+						<div class="art-sheet-br"></div>
+						<div class="art-sheet-tc"></div>
+						<div class="art-sheet-bc"></div>
+						<div class="art-sheet-cl"></div>
+						<div class="art-sheet-cr"></div>
+						<div class="art-sheet-cc"></div>
+						<div class="art-sheet-body">
+						<div class="art-nav">
+						<div class="l"></div>
+						<div class="r"></div>
+						<ul class="art-menu">
+						<li><a href="/"></a> <span class="active"><span class="l"> </span><span class="r"> </span><span class="t">Home</span></a></li>
+						<li><a href="/addsug"><span class="l"> </span><span class="r"> </span><span class="t">Suggesions</span></a></li>
+						<li><a href="/units"><span class="l"> </span><span class="r"> </span><span class="t">History</span></a></li>
+						<li><a href="/about-us.html"><span class="l"> </span><span class="r"> </span><span class="t">About us</span></a></li>
+						</ul>
+						</div>
+    	<table style="height:300px">
      	<tr>
-     	  <tr>
-             <td align="center" ><div class="art-vmenublockheader"><h3 class="t" style="color:#6495ED ; font-weight: bold; font-size: 20px;">male name</h3></div></td>
-             <td align="center"><div class="art-vmenublockheader"><h3 class="t" style="color:#6495ED ; font-weight: bold; font-size: 20px;">Date</h3></div></td>
-             <td align="center"><div class="art-vmenublockheader"><h3 class="t" style="color:#6495ED ; font-weight: bold; font-size: 20px;">Participants</h3></div></td>
-             <td align="center"><div class="art-vmenublockheader"><h3 class="t" style="color:#6495ED ; font-weight: bold; font-size: 20px;">Rating</h3></div></td>
-              <td align="center"><div class="art-vmenublockheader"><h3 class="t" style="color:#6495ED ; font-weight: bold; font-size: 20px;">Male picture</h3></div></td>
-
-          </tr>
-          <tr style="height:1.5em;">
-          	 <td align="center"><div class="art-vmenublockheader" ><h3 class="t"  style="font-size: 15px" >Pitza</h3></div></td>
-          	  <td align="center"><div class="art-vmenublockheader"><h3 class="t"  style="font-size: 15px">1-1-2018</h3></div></td>
-          	   <td align="center" ><div class="art-vmenublockheader"><h3 class="t" style="font-size: 15px">Mohammad</h3></div></td>
-          	   	<td align="center">
-          	   	   	<div class="jquery-script-clear"></div>
-
-					<div class="container">
-					<div id="element"></div>
-					</div>
-
-					<script>
-					var emotionsArray = ['angry','disappointed','meh', 'happy', 'inLove'];
-					  $("#element").emotionsRating({
-					    emotionSize: 20,
-					    bgEmotion: 'happy',
-					    emotions: emotionsArray,
-					    color: 'gold'
-					  });
-					</script>
-					<script type="text/javascript">
-
-					  var _gaq = _gaq || [];
-					  _gaq.push(['_setAccount', 'UA-36251023-1']);
-					  _gaq.push(['_setDomainName', 'jqueryscript.net']);
-					  _gaq.push(['_trackPageview']);
-
-					  (function() {
-					    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-					    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-					    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-					  })();
-
-					</script>
-					</td>
-					<td align="center">
-                          <img src="/static/3.jpg"  alt="" style="width:275px; height:170px ; border: 2px solid #6495ED;">
-                    </td>
-		    </tr>
-
-		    <tr>
-                  <td><textarea name="comment" placeholder= "Write your Comment" form="usrform"  style="width:600px; height:100px; border: 2px solid #6495ED; position:absolute; left:300px"></textarea></td>
-
-		    </tr>
-
-		    <tr>
-		    	<td style="position:absolute ; left:300px ;Top:525px"><form class="login-form" acion="/rating" method="post">
-
-                            <button class="btn btn-primary" type="submit">Add Comment</button>
-
-                           </form>
-                </td>
-
-		    </tr>
-
-     </table >
-
-
-    </center>
-
-
-  </div>
-
-
+     	<td valign=top>
+     	    <table>
+     	    <tr>
+             	<td align="left" ><div class="art-vmenublockheader"><h3 class="t" style="color:#6495ED ; font-weight: bold; font-size: 15px;">Meal Name</h3></div></td>
+             	<td align="left"><div class="art-vmenublockheader"><h3 class="t" style="color:#6495ED ; font-weight: bold; font-size: 15px;">Date</h3></div></td>
+				<td  align="left"><div class="art-vmenublockheader"><h3 class="t" style="color:#6495ED ; font-weight: bold; font-size: 15px;">Cooker</h3></div></td>
+			</tr>
+			<tr>
+				<td align="left"><div class="art-vmenublockheader" ><h3 class="t"  style="font-size: 15px" >Pizza</h3></div></td>
+				<td align="left"><div class="art-vmenublockheader"><h3 class="t"  style="font-size: 15px">10-01-2018</h3></div></td>
+			  	<td colspan=3 align="left" ><div class="art-vmenublockheader"><h3 class="t" style="font-size: 15px">Mohammad</h3></div></td>
+			</tr>
+			<tr>
+				<td colspan=3>
+					<!--	<td colspan=2 align="center"><div class="art-vmenublockheader"><h3 class="t" style="color:#6495ED ; font-weight: bold; font-size: 20px;">Male picture</h3></div></td> -->
+					<img src="/static/3.jpg"  alt="" style="width:375px; height:160px ; border: 2px solid #6495ED;">
+				</td>
+			</tr>
+		   </table>
+		</td>
+		<td valign=top>
+		<table >
+			<tr><td valign="top" style="height:50px"><div class="jquery-script-clear"></div><div class="container"><div id="element"></div></div><script>buildRatingemotion();</script></td></tr>
+			<tr><td><textarea name="comment" placeholder= "Write your Comment" form="usrform" style="width:400px; height:160px"></textarea></td></tr>
+		</table>
+		</td>
+        </tr>
+        <tr><td colspan=2><form class="login-form" acion="/rating" method="post"><button class="btn btn-primary" type="submit">Add Comment</button></form></td></tr>
+        </table>
 </div>
-
-     <br>
-
-
-
-
-
-	</body>
+</div>
+</div>
+</div>
+</body>
 </html>

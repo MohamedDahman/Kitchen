@@ -8,7 +8,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import apology
 import os
 from helpers import login_required,getOwner,mealProcess,isParticipant,getParticipantKind , getCommunities, getUnits,getMealParticipant
-from helpers  import getParticipantCount, getAllMealsAfterToday, addUser, sendWellcomdeMail, addMeals, getMaxMealId , sendMailInvitation
+from helpers  import getParticipantCount, getAllMealsAfterToday, addUser, sendWellcomdeMail, addMeals, getMaxMealId , sendMailInvitation , getMealNotRatet
 import datetime
 from helpers import login_required
 from tempfile import mkdtemp
@@ -41,6 +41,13 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 db = SQL("sqlite:///kitchen.db")
 
+
+@app.before_first_request
+def _run_on_start():
+    print("doing something important with %s")
+
+
+
 @app.after_request
 def after_request(response):
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
@@ -64,9 +71,20 @@ def index():
         return render_template("index.html")
 
 
-@app.route("/rating1")
-def rating():
+@app.route("/addRate", methods=["GET", "POST"])
+def addRate():
+    if request.method == "GET":
+        return render_template("addRate.html", meals=getMealNotRatet(session["user_id"]))
+
+
+@app.route("/ratingMeal", methods=["GET", "POST"])
+def ratingMeal():
+    #if request.method == "GET":
         return render_template("rating1.html")
+
+        #first_name = request.form.get("firstName")
+        #last_name = request.form.get("lastName")
+
 
 @app.route("/logout")
 def logout():
@@ -320,7 +338,6 @@ def units():
 @app.route("/configer", methods=["GET", "POST"])
 def configer():
     """configer user"""
-
 
     # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
