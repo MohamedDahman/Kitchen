@@ -18,7 +18,8 @@
 		<script type="text/javascript" src="./static/script.js"></script>
 
 	</head>
-	<body>
+
+	    <body onload="dateChangeValue(datechoice.value)">
 		<div id="art-page-background-glare">
 			<div id="art-page-background-glare-image">
 				<div id="art-main">
@@ -48,29 +49,28 @@
                         <table class="table table-striped" style="width:100%">
                          <tr style="height:3px">
                             <td>Meal Name</td>
-                            <td colspan=3><input type="text" id="fname" name="name" style="width:500px;" placeholder="Name of the Meal.."></td>
+                            <td colspan=4><input type="text" id="mealName" name="mealName" style="width:500px;" placeholder="Name of the Meal.."></td>
                             <td rowspan=3 valign=center><input type="submit" value="search"></td>
 
                          </tr>
                          <tr>
                             <td><div class="art-vmenublockheader"><h3 class="t">Cooker</h3></div></td>
-                            <td colspan=3><input type="text" id="fname" name="name" style="width:500px;" placeholder="Cooker"></td>
+                            <td colspan=4><input type="text" id="coocker" name="coocker" style="width:500px;" placeholder="Cooker"></td>
                          </tr>
                          <tr>
                             <td><div class="art-vmenublockheader"><h3 class="t">Meal Date</h3></div></td>
                             <td>
-                            <select>
+                            <select onchange="dateChangeValue(this.value);" name="datechoice" id="datechoice">
                               <option value="notset">N/A</option>
                               <option value="in">in</option>
                               <option value="before">before</option>
                               <option value="after">after</option>
                               <option value="between">between</option>
                             </select>
-
                             </td>
-                            <td align="left"><input type="date" id="fname" name="date"></td>
-                            <td align="left"><input type="date" id="fname" name="date"></td>
-
+                            <td align="left"><input type="date" id="fisrtDate" name="fisrtDate"></td>
+                            <td><div class="art-vmenublockheader" id="andlabel"><h3 class="t">and</h3></div></td>
+                            <td align="left"><input type="date" id="secondDate" name="secondDate"></td>
                          </tr>
 
 

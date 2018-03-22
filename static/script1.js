@@ -57,3 +57,20 @@ function buildRatingemotion() {
 					  })();
 
 }
+
+
+function dateChangeValue(value){
+  document.getElementById("fisrtDate").style.visibility = "hidden";
+  document.getElementById("secondDate").style.visibility = "hidden";
+  document.getElementById("andlabel").style.visibility = "hidden";
+
+  if ((value =="in") || (value =="before") || (value =="after")){
+    document.getElementById("fisrtDate").style.visibility = "visible";
+  }
+  else if (value =="between"){
+    document.getElementById("fisrtDate").style.visibility = "visible";
+    document.getElementById("secondDate").style.visibility = "visible";
+    document.getElementById("andlabel").style.visibility = "visible";
+  }
+
+}
