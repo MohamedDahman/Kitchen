@@ -66,10 +66,30 @@ Session(app)
 
 
 
+@app.route("/searchMealName")
+def searchMealName():
+    """Search for places that match query """
+
+    value = request.args.get("q")
+    value = "%" + str(value) + "%"
+    value = str(value)
+
+    rows = db.execute("""select * from meals  where (name like :value ) """,
+                      value = value)
+
+    return jsonify(rows)
+
+
+
 @app.route("/")
 def index():
         return render_template("index.html")
 
+@app.route("/search", methods=["GET", "POST"])
+@login_required
+def search():
+    if request.method == "GET":
+        return render_template("search.html", meals=getMealNotRatet(session["user_id"]))
 
 @app.route("/addRate", methods=["GET", "POST"])
 def addRate():
@@ -106,11 +126,6 @@ def errorhandler(e):
 # listen for errors
 for code in default_exceptions:
     app.errorhandler(code)(errorhandler)
-
-
-@app.route("/search", methods=["GET", "POST"])
-def search():
-    return render_template("search.html")
 
 
 @app.route("/about", methods=["GET", "POST"])
