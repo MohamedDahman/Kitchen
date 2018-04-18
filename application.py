@@ -29,8 +29,8 @@ if os.environ.get('WERKZEUG_RUN_MAIN') != 'true':
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_SSL'] = True
-app.config['MAIL_USERNAME'] = ''
-app.config['MAIL_PASSWORD'] = ''
+app.config['MAIL_USERNAME'] = 'mhddahman@gamil.com'
+app.config['MAIL_PASSWORD'] = 'mhedzena19771981'
 
 mail = Mail(app)
 
@@ -196,7 +196,7 @@ def addsug():
        newfilename = UPLOAD_FOLDER+"/"+str(maxId) +".jpg"
        os.rename(f,newfilename)
 
-       sendMailInvitation(mealId, mealName, mealDes , mealDate)
+       #sendMailInvitation(mealId, mealName, mealDes , mealDate)
 
        return render_template("materialdetails.html",units = getUnits() ,mealid=maxId, mealName=mealName,mealDes=mealDes,mealDate=mealDate,cook=getOwner(mealId))
    else:

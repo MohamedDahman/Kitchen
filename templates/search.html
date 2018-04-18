@@ -19,6 +19,22 @@
         <script type="text/javascript" src="./static/searchScript.js"></script>
 	</head>
 	    <body onload="dateChangeValue(datechoice.value)">
+
+		<text id="idd"> </text>
+	    	<script type="text/javascript" src="">
+	    			    	export function dateFormatter(date, country) {
+							  var day = this.date.getDate();
+							var month = this.date.getMonth();
+						var year = this.date.getFullYear();
+
+  if (country == 'at') {
+    return day + "." + month + "." + year
+    // '01.02.2017 12:05'
+  }
+	document.getElementById("idd").text = dateFormatter("19-12-2009","at")
+	    			    	}
+
+	    	</script>
 		<div id="art-page-background-glare">
 			<div id="art-page-background-glare-image">
 				<div id="art-main">
