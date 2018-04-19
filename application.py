@@ -29,8 +29,8 @@ if os.environ.get('WERKZEUG_RUN_MAIN') != 'true':
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_SSL'] = True
-app.config['MAIL_USERNAME'] = 'mhddahman@gamil.com'
-app.config['MAIL_PASSWORD'] = 'mhedzena19771981'
+app.config['MAIL_USERNAME'] = ''
+app.config['MAIL_PASSWORD'] = ''
 
 mail = Mail(app)
 

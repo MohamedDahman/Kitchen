@@ -81,7 +81,7 @@
                 </thead>
                 <tr>
                 <td><input autocomplete="off" autofocus class="form-control" name="name" placeholder="material name" type="text"/></td>
-                <td><input autocomplete="off" autofocus class="form-control" name="quantity" placeholder="quantity" type="number"/></td>
+                <td><input autocomplete="off" autofocus class="form-control" name="quantity" min=1 placeholder="quantity" type="number"/></td>
                 <td>
                     <select class="form-control" name="unit">
                 {% for unit in units %}
