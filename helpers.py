@@ -24,12 +24,10 @@ cron = Scheduler(daemon=True)
 # Explicitly kick off the background thread
 if os.environ.get('WERKZEUG_RUN_MAIN') != 'true':
     cron.start()
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USE_SSL'] = True
-app.config['MAIL_USERNAME'] = 'mhddahman@gmail.com'
-#app.config['MAIL_USERNAME'] = 'it.diaaa@gmail.com'
-#app.config['MAIL_PASSWORD'] = 'd123321d'
+#app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+#app.config['MAIL_PORT'] = 465
+#app.config['MAIL_USE_SSL'] = True
+#app.config['MAIL_USERNAME'] = 'mhddahman@gmail.com'
 
 mail = Mail(app)
 
@@ -37,7 +35,6 @@ mail = Mail(app)
 def login_required(f):
     """
     Decorate routes to require login.
-
     http://flask.pocoo.org/docs/0.12/patterns/viewdecorators/
     """
     @wraps(f)
@@ -152,6 +149,10 @@ def sendWellcomdeMail(email,username):
 def addMeals(mealName, mealDes, mealDate , userId):
     suggestion = application.db.execute("INSERT INTO meals (name, description, date, userId) VALUES (:name, :description, :mealDate ,:userId)",
                             name = mealName, description = mealDes, mealDate = mealDate , userId = userId )
+
+def getMeal(mealId):
+    meal = application.db.execute("select * from meal where id = :id",id=meailId)
+    return meal[0]
 
 def getMaxMealId():
     mealId = application.db.execute("select max(id) as maxId from meals")

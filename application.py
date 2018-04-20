@@ -7,8 +7,6 @@ from werkzeug.exceptions import default_exceptions
 from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import apology
 import os
-from helpers import login_required,getOwner,mealProcess,isParticipant,getParticipantKind , getCommunities, getUnits,getMealParticipant
-from helpers  import getParticipantCount, getAllMealsAfterToday, addUser, sendWellcomdeMail, addMeals, getMaxMealId , sendMailInvitation , getMealNotRatet
 import datetime
 from helpers import login_required
 from tempfile import mkdtemp
@@ -363,15 +361,9 @@ def units():
 @login_required
 def addrecord():
       if request.method == "POST":
-
-        return render_template("materialdetails.html", units=units)
-      else:
-        units = db.execute("SELECT * FROM units")
-        return render_template("units.html", units=units)
-
-
-##    return redirect("units")
-
+        mealid = request.form.get("mealid")
+        meal = getMeal(mealid)
+        return render_template("materialdetails.html",units = getUnits() ,mealid=mealid, mealName=meal["name"],mealDes=meal["description"],mealDate=meal["date"],cook=getOwner(mealId))
 
 
 @app.route("/configer", methods=["GET", "POST"])
