@@ -12,11 +12,9 @@ import smtplib
 import os
 from email.mime.text import MIMEText
 from apscheduler.scheduler import Scheduler
-
 from flask import redirect, render_template, request, session
 from functools import wraps
-
-db = SQL("sqlite:///kitchen.db")
+import application
 
 
 # Configure application
@@ -29,8 +27,7 @@ if os.environ.get('WERKZEUG_RUN_MAIN') != 'true':
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_SSL'] = True
-app.config['MAIL_USERNAME'] = 'mh'
-app.config['MAIL_PASSWORD'] = ''
+app.config['MAIL_USERNAME'] = 'mhddahman@gmail.com'
 #app.config['MAIL_USERNAME'] = 'it.diaaa@gmail.com'
 #app.config['MAIL_PASSWORD'] = 'd123321d'
 
@@ -67,19 +64,19 @@ def apology(message, code=400):
 
 
 def mealProcess(mealId, community, userID):
-    rows = db.execute("insert into  mealProcess (mealId, community, userId) values (:mealId, :community, :userId)",
+    rows = application.db.execute("insert into  mealProcess (mealId, community, userId) values (:mealId, :community, :userId)",
                       mealId=mealId, community=community ,userId=userID)
     return rows
 
 
 def isParticipant(mealId, userID):
-    rows = db.execute("select count(*) as Counts  from mealProcess where  mealId = :mealId and  userId = :userId",
+    rows = application.db.execute("select count(*) as Counts  from mealProcess where  mealId = :mealId and  userId = :userId",
                       mealId = mealId, userId=userID)
     return rows[0]["Counts"]
 
 
 def getOwner(mealId):
-        owner = db.execute("select users.username from  mealProcess , users   where mealId= :mealId and users.id = mealProcess.userId and community = 1 " , mealId = mealId)
+        owner = application.db.execute("select users.username from  mealProcess , users   where mealId= :mealId and users.id = mealProcess.userId and community = 1 " , mealId = mealId)
         if len(owner) !=0 :
                 return   owner[0]["username"]
         else:
@@ -88,7 +85,7 @@ def getOwner(mealId):
 
 
 def getParticipantKind(mealId, userID):
-    rows = db.execute("select community from   mealProcess where  mealId = :mealId and  userId = :userId",
+    rows = application.db.executedb.execute("select community from   mealProcess where  mealId = :mealId and  userId = :userId",
                       mealId = mealId, userId=userID)
     if len(rows) != 0:
         return rows[0]["community"]
@@ -97,21 +94,22 @@ def getParticipantKind(mealId, userID):
 
 
 def getCommunities():
-        communities = db.execute("select * from community where id <>1 ")
+        communities = application.db.execute("select * from community where id <>1 ")
         return communities
 
 
 def getUnits():
-    unitsrows = db.execute("SELECT description FROM units")
+    unitsrows = application.db.execute("SELECT description FROM units")
     return unitsrows
 
 
 def getMealParticipant(mealId):
-    MealParticipant = db.execute("select users.username from  mealProcess , users   where mealId= :mealId and users.id = mealProcess.userId " , mealId = mealId )
+    MealParticipant = application.db.execute("select users.username from  mealProcess , users   where mealId= :mealId and users.id = mealProcess.userId " , mealId = mealId )
     return MealParticipant
 
 def getParticipantCount(mealId):
-    ParticipantCount = db.execute("select count(distinct userId) as userCount from  mealProcess where  mealId = :mealId",
+
+    ParticipantCount = application.db.execute("select count(distinct userId) as userCount from  mealProcess where  mealId = :mealId",
                                    mealId=mealId)
     return ParticipantCount
 
@@ -121,7 +119,7 @@ def getAllMealsAfterToday():
         listRowData = []  # this is list
         now = datetime.datetime.now()
         # in this function to get all shares with current price and put it in the list of dict
-        rows = db.execute("select * from  meals  where date >= :date order by date asc", date = str(now))
+        rows = application.db.execute("select * from  meals  where date >= :date order by date asc", date = str(now))
 
         currentRow = 0
         while currentRow <= len(rows) - 1:
@@ -139,7 +137,7 @@ def getAllMealsAfterToday():
 
 
 def addUser(first_name,last_name,email,phone_number,username,hashed_password):
-    rows = db.execute("INSERT INTO users (firstName, lastName, eMail, phoneNumber, username, hash) VALUES (:firstName, :lastName, :eMail, :phoneNumber, :username, :hash)",
+    rows = application.db.execute("INSERT INTO users (firstName, lastName, eMail, phoneNumber, username, hash) VALUES (:firstName, :lastName, :eMail, :phoneNumber, :username, :hash)",
                       firstName=first_name, lastName=last_name, eMail=email, phoneNumber=phone_number, username=username, hash=hashed_password)
     return rows
 
@@ -152,18 +150,18 @@ def sendWellcomdeMail(email,username):
 
 
 def addMeals(mealName, mealDes, mealDate , userId):
-    suggestion = db.execute("INSERT INTO meals (name, description, date, userId) VALUES (:name, :description, :mealDate ,:userId)",
+    suggestion = application.db.execute("INSERT INTO meals (name, description, date, userId) VALUES (:name, :description, :mealDate ,:userId)",
                             name = mealName, description = mealDes, mealDate = mealDate , userId = userId )
 
 def getMaxMealId():
-    mealId = db.execute("select max(id) as maxId from meals")
+    mealId = application.db.execute("select max(id) as maxId from meals")
     maxId = mealId[0]["maxId"]
     return maxId
 
 
 def sendMailInvitation(mealId, mealName, mealDes , mealDate):
        cook_user = getOwner(mealId)
-       users = db.execute("SELECT * FROM users")
+       users = application.db.execute("SELECT * FROM users")
        a_users =[]
        allUsers =''
        for i in range(len(users)):
@@ -175,13 +173,11 @@ def sendMailInvitation(mealId, mealName, mealDes , mealDate):
                msg = Message(sender='it.diaaa@gmail.com',recipients=[allUsers], html=message,subject=subject)
                mail.send(msg)
 
-
-
 def getMealNotRatet(userId):
     rowData = {}  # this is a dict
     listRowData = []  # this is list
 
-    rows = db.execute("select * from Meals where id not in (select mealid from mealRating where userId =:userId)", userId=userId)
+    rows = application.db.execute("select * from Meals where id not in (select mealid from mealRating where userId =:userId)", userId=userId)
 
     currentRow = 0
     sumtotal = 0

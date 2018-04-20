@@ -17,6 +17,7 @@ from apscheduler.scheduler import Scheduler
 from flask_mail import Mail, Message
 import smtplib
 from email.mime.text import MIMEText
+import helpers
 
 
 # Configure application
@@ -26,13 +27,6 @@ cron = Scheduler(daemon=True)
 # Explicitly kick off the background thread
 if os.environ.get('WERKZEUG_RUN_MAIN') != 'true':
     cron.start()
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USE_SSL'] = True
-app.config['MAIL_USERNAME'] = ''
-app.config['MAIL_PASSWORD'] = ''
-
-mail = Mail(app)
 
 
 UPLOAD_FOLDER = 'static'
@@ -42,10 +36,25 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 db = SQL("sqlite:///kitchen.db")
 
 
+
+
 @app.before_first_request
 def _run_on_start():
-    print("doing something important with %s")
 
+    print("**************************initialize mail configration********************************")
+    rows = db.execute("SELECT * FROM mailconfigration")
+    if len(rows) ==1 :
+        app.config['MAIL_SERVER'] = rows[0]['MAIL_SERVER'] #'smtp.gmail.com'
+        app.config['MAIL_PORT'] = rows[0]['MAIL_PORT']
+        app.config['MAIL_USE_SSL'] = rows[0]['MAIL_USE_SSL']
+        app.config['MAIL_USERNAME'] = rows[0]['MAIL_USERNAME']
+        app.config['MAIL_PASSWORD'] = rows[0]['MAIL_PASSWORD']
+        mail = Mail(app)
+    print("**************************initialize mail configration********************************")
+
+class initial :
+    def __init__ (Self):
+        global db;
 
 
 @app.after_request
@@ -176,7 +185,6 @@ def participant():
 
 @app.route("/addsug", methods=["GET", "POST"])
 def addsug():
-
    if request.method == "POST":
        mealName = request.form.get("name")
        mealDes = request.form.get("description")
@@ -346,6 +354,17 @@ def units():
 
         return render_template("units.html", units=units)
 
+      else:
+        units = db.execute("SELECT * FROM units")
+        return render_template("units.html", units=units)
+
+
+@app.route("/addrecord", methods=["GET", "POST"])
+@login_required
+def addrecord():
+      if request.method == "POST":
+
+        return render_template("materialdetails.html", units=units)
       else:
         units = db.execute("SELECT * FROM units")
         return render_template("units.html", units=units)
