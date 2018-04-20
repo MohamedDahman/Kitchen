@@ -27,8 +27,7 @@ if os.environ.get('WERKZEUG_RUN_MAIN') != 'true':
 #app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 #app.config['MAIL_PORT'] = 465
 #app.config['MAIL_USE_SSL'] = True
-#app.config['MAIL_USERNAME'] = 'mhddahman@gmail.com'
-
+#app.config['MAIL_USERNAME'] = 'mhddahman@gmail.com
 mail = Mail(app)
 
 
@@ -82,7 +81,7 @@ def getOwner(mealId):
 
 
 def getParticipantKind(mealId, userID):
-    rows = application.db.executedb.execute("select community from   mealProcess where  mealId = :mealId and  userId = :userId",
+    rows = application.db.execute("select community from   mealProcess where  mealId = :mealId and  userId = :userId",
                       mealId = mealId, userId=userID)
     if len(rows) != 0:
         return rows[0]["community"]
@@ -151,8 +150,12 @@ def addMeals(mealName, mealDes, mealDate , userId):
                             name = mealName, description = mealDes, mealDate = mealDate , userId = userId )
 
 def getMeal(mealId):
-    meal = application.db.execute("select * from meal where id = :id",id=meailId)
+    meal = application.db.execute("select * from meal where id = :id",id=mealId)
     return meal[0]
+
+def addmealsDetails(mealId , material , quntity, unit):
+    meal = application.db.execute("insert into mealsDetails (id , ")
+
 
 def getMaxMealId():
     mealId = application.db.execute("select max(id) as maxId from meals")

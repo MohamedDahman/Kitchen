@@ -15,7 +15,7 @@ from apscheduler.scheduler import Scheduler
 from flask_mail import Mail, Message
 import smtplib
 from email.mime.text import MIMEText
-import helpers
+from helpers import *
 
 
 # Configure application
@@ -363,7 +363,12 @@ def addrecord():
       if request.method == "POST":
         mealid = request.form.get("mealid")
         meal = getMeal(mealid)
-        return render_template("materialdetails.html",units = getUnits() ,mealid=mealid, mealName=meal["name"],mealDes=meal["description"],mealDate=meal["date"],cook=getOwner(mealId))
+
+     #   mealsDetails
+     #   "material""mealId""quntity""unit"
+      #  meal = application.db.execute("insert into ")
+
+        return render_template("materialdetails.html",units = getUnits() ,mealid=mealid, mealName=meal["name"],meailmealDes=meal["description"],mealDate=meal["date"],cook=getOwner(mealId))
 
 
 @app.route("/configer", methods=["GET", "POST"])
