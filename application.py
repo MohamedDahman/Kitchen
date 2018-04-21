@@ -362,13 +362,17 @@ def units():
 def addrecord():
       if request.method == "POST":
         mealid = request.form.get("mealid")
+
+        material =request.form.get("name")
+        print(material)
+        quntity =request.form.get("quantity")
+        print(quntity)
+        unit = request.form.get("unit")
+        print(unit)
         meal = getMeal(mealid)
-
-     #   mealsDetails
-     #   "material""mealId""quntity""unit"
-      #  meal = application.db.execute("insert into ")
-
-        return render_template("materialdetails.html",units = getUnits() ,mealid=mealid, mealName=meal["name"],meailmealDes=meal["description"],mealDate=meal["date"],cook=getOwner(mealId))
+        addmealsDetails(mealid,material,quntity,meal)
+        print("-----------------------------------------------")
+        return render_template("materialdetails.html",units = getUnits() ,mealid=mealid, mealName=meal["name"],meailmealDes=meal["description"],mealDate=meal["date"],cook=getOwner(mealid))
 
 
 @app.route("/configer", methods=["GET", "POST"])

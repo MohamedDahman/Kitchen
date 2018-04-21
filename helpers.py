@@ -95,7 +95,7 @@ def getCommunities():
 
 
 def getUnits():
-    unitsrows = application.db.execute("SELECT description FROM units")
+    unitsrows = application.db.execute("SELECT * FROM units")
     return unitsrows
 
 
@@ -150,12 +150,14 @@ def addMeals(mealName, mealDes, mealDate , userId):
                             name = mealName, description = mealDes, mealDate = mealDate , userId = userId )
 
 def getMeal(mealId):
-    meal = application.db.execute("select * from meal where id = :id",id=mealId)
+    meal = application.db.execute("select * from meals where id = :id",id=mealId)
     return meal[0]
 
 def addmealsDetails(mealId , material , quntity, unit):
-    meal = application.db.execute("insert into mealsDetails (id , ")
+    maxId = application.db.execute("select max(id) from mealsDetails")
 
+    meal = application.db.execute("insert into mealsDetails (id ,mealId,quntity,unit)values(:id1 ,:mealId,:quntity,:unit)",
+                                id1 = maxId+1 ,mealId = mealId ,quntity=quntity ,unit=unit)
 
 def getMaxMealId():
     mealId = application.db.execute("select max(id) as maxId from meals")
