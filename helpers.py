@@ -30,10 +30,10 @@ if os.environ.get('WERKZEUG_RUN_MAIN') != 'true':
 #app.config['MAIL_USERNAME'] = 'mhddahman@gmail.com
 mail = Mail(app)
 
-
 def login_required(f):
     """
     Decorate routes to require login.
+
     http://flask.pocoo.org/docs/0.12/patterns/viewdecorators/
     """
     @wraps(f)
@@ -154,10 +154,11 @@ def getMeal(mealId):
     return meal[0]
 
 def addmealsDetails(mealId , material , quntity, unit):
-    maxId = application.db.execute("select max(id) from mealsDetails")
+    maxId = application.db.execute("SELECT max(id)+1 as maxvalue from mealsDetails")
 
-    meal = application.db.execute("insert into mealsDetails (id ,mealId,quntity,unit)values(:id1 ,:mealId,:quntity,:unit)",
-                                id1 = maxId+1 ,mealId = mealId ,quntity=quntity ,unit=unit)
+    meal = application.db.execute("INSERT INTO mealsDetails (id ,mealId,material,quntity,unit) VALUES (:id1 ,:mealId,:material,:quntity,:unit)",
+                                id1 = 1 ,mealId = mealId ,material=material,quntity=1 ,unit=1)
+    return meal
 
 def getMaxMealId():
     mealId = application.db.execute("select max(id) as maxId from meals")

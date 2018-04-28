@@ -370,7 +370,7 @@ def addrecord():
         unit = request.form.get("unit")
         print(unit)
         meal = getMeal(mealid)
-        addmealsDetails(mealid,material,quntity,meal)
+        addmealsDetails(mealid,material,quntity,unit)
         print("-----------------------------------------------")
         return render_template("materialdetails.html",units = getUnits() ,mealid=mealid, mealName=meal["name"],meailmealDes=meal["description"],mealDate=meal["date"],cook=getOwner(mealid))
 
@@ -426,3 +426,4 @@ def configer():
             return render_template("mailConfigration.html", Mail_Server = rows[0]["MAIL_SERVER"] ,  Mail_Port = rows[0]["MAIL_PORT"], Mail_Use_Ssl = rows[0]["MAIL_USE_SSL"] , Mail_Username = rows[0]["MAIL_USERNAME"] , Mail_Password = rows[0]["MAIL_PASSWORD"])
         else:
             return render_template("mailConfigration.html", Mail_Server = "" ,  Mail_Port = "" , Mail_Use_Ssl = "" , Mail_Username = "" , Mail_Password = "")
+
