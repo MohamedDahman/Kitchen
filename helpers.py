@@ -20,18 +20,13 @@ import application
 # Configure application
 app = Flask(__name__)
 
+
+
 cron = Scheduler(daemon=True)
 # Explicitly kick off the background thread
 if os.environ.get('WERKZEUG_RUN_MAIN') != 'true':
     cron.start()
 
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USE_SSL'] = True
-app.config['MAIL_USERNAME'] = 'refugeecodekitchen@gmail.com'
-app.config['MAIL_PASSWORD'] = 'nehctikeegufer'
-
-mail = Mail(app)
 
 def login_required(f):
     """
@@ -129,6 +124,7 @@ def getAllMealsAfterToday():
             rowData['ParticipateCount'] = getParticipantCount(rows[currentRow]["id"])
             rowData['username'] = getOwner(rows[currentRow]["id"] )
             rowData['isParticipant'] = getParticipantKind(rows[currentRow]["id"], session["user_id"])
+            print(rowData['isParticipant'])
             listRowData.append(rowData)
             currentRow = currentRow + 1
 
@@ -143,9 +139,9 @@ def addUser(first_name,last_name,email,phone_number,username,hashed_password):
 
 def sendWellcomdeMail(email,username):
     time=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    msg = Message(' Kitchen App Service !! ' + time,sender='it.diaaa@gmail.com', recipients =[email])
+    msg = Message(' Kitchen App Service !! ' + time,sender=getMailName(), recipients =[email])
     msg.html=render_template('/welcomeuser.html',user_name=username)
-    mail.send(msg)
+    application.mail.send(msg)
 
 
 def addMeals(mealName, mealDes, mealDate , userId):
@@ -181,11 +177,11 @@ def sendMailInvitation(mealId, mealName, mealDes , mealDate , newfilename):
        for i in range(len(users)):
            allUsers = str(users[i]['eMail'])
            print(allUsers)
-           with mail.connect() as conn:
+           with application.mail.connect() as conn:
                message = render_template("sug_email.html",mealName=mealName,mealDes=mealDes,mealDate=mealDate,cook=cook_user,newfilename=newfilename)
                subject = "hello, %s" % "all"
-               msg = Message(sender='refugeecodekitchen@gmail.com',recipients=[allUsers], html=message,subject=subject)
-               mail.send(msg)
+               msg = Message(sender=getMailName(),recipients=[allUsers], html=message,subject=subject)
+               application.mail.send(msg)
 
 def getMealNotRatet(userId):
     rowData = {}  # this is a dict
@@ -210,3 +206,19 @@ def getMealNotRatet(userId):
 def getMealDetails(mealId):
     mealDetails = application.db.execute("select m.id,material,mealId,quntity,unit,description from  mealsDetails m,units u where mealId = :mealId and m.unit = u.id",mealId = mealId )
     return mealDetails
+
+def getMailName():
+        rows = application.db.execute("select * from mailconfigration ")
+        return rows[0]["MAIL_USERNAME"]
+
+def initilizeMail():
+    print("**************************initialize mail configration********************************")
+    rows = application.db.execute("SELECT * FROM mailconfigration")
+    if len(rows) ==1 :
+        app.config['MAIL_SERVER'] = rows[0]['MAIL_SERVER'] #'smtp.gmail.com'
+        app.config['MAIL_PORT'] = rows[0]['MAIL_PORT']
+        app.config['MAIL_USE_SSL'] = rows[0]['MAIL_USE_SSL']
+        app.config['MAIL_USERNAME'] = rows[0]['MAIL_USERNAME']
+        app.config['MAIL_PASSWORD'] = rows[0]['MAIL_PASSWORD']
+        application.mail = Mail(app)
+    print("**************************initialize mail configration********************************")

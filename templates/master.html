@@ -43,11 +43,13 @@
 								<div class="r"></div>
 								<ul class="art-menu">
 
-						<li><a href="/"></a> <span class="active"><span class="l"> </span><span class="r"> </span><span class="t">Home</span></a></li>
+						<li><a href="/"><span class="l"> </span><span class="r"> </span><span class="t">Home</span></a></li>
 						<li><a href="/addsug"><span class="l"> </span><span class="r"> </span><span class="t">Suggesions</span></a></li>
 						<li><a href="/units"><span class="l"> </span><span class="r"> </span><span class="t">History</span></a></li>
-						<li><a href="./about-us.html"><span class="l"> </span><span class="r"> </span><span class="t">About us</span></a></li>
-						</ul>
+						<li><a href="/about"><span class="l"> </span><span class="r"> </span><span class="t">About us</span></a></li>
+						<li><a href="/logout"><span class="l"> </span><span class="r"> </span><span class="t">Log out</span></a></li>
+
+            </ul>
 						</div>
 
     <table class="table table-striped" style="width:100%">
@@ -77,36 +79,33 @@
       </td>
       <td>
                 <table>
-
-                  <tr>
-                    <td>
-                      {% if isParticipant == 0 %}
+                      {% if isParticipant != 0 %}
+                      <tr>
+                      <td>
                           <form method="POST" action="/addComunity">
                           <select class="form-control" name="community">
                             {% for community in communities %}
                               <option value="{{ community.id }}">{{ community.description }}</option>
                             {% endfor %}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
+                      </td>
+                      </tr>
+                      {% endif %}
+                      <tr>
+                      <td>
+                        {% if isParticipant != 0 %}
                         <div class="form-group">
                         <button class="btn btn-primary"  name="addComunity" value={{meal.id}} type="submit"><div class="art-vmenublockheader"><h3 class="t">add me</h3></div></button>
                         </div>
                         </form>
-                    {% endif %}
-                    {% if isParticipant != 1 %}
-                    <form method="POST" action="/removeParticipate">
+                        {% endif %}
+                        {% if isParticipant == 0 %}
+                        <form method="POST" action="/removeParticipate">
                         <div class="form-group">
                         <button class="btn btn-primary"  name="removeComunity" value={{meal.id}} type="submit"><div class="art-vmenublockheader"><h3 class="t">remove me</h3></div></button>
                         </div>
-
-                    </form>
-
+                        </form>
+                        {% endif %}
                     </td>
-                    {% endif %}
-
-
                   </tr>
 
       </table>

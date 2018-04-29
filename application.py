@@ -21,6 +21,7 @@ from helpers import *
 # Configure application
 app = Flask(__name__)
 
+
 cron = Scheduler(daemon=True)
 # Explicitly kick off the background thread
 if os.environ.get('WERKZEUG_RUN_MAIN') != 'true':
@@ -33,27 +34,17 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 db = SQL("sqlite:///kitchen.db")
 
-
+mail = Mail(app)
 
 
 @app.before_first_request
 def _run_on_start():
-
-    print("**************************initialize mail configration********************************")
-    rows = db.execute("SELECT * FROM mailconfigration")
-    if len(rows) ==1 :
-        app.config['MAIL_SERVER'] = rows[0]['MAIL_SERVER'] #'smtp.gmail.com'
-        app.config['MAIL_PORT'] = rows[0]['MAIL_PORT']
-        app.config['MAIL_USE_SSL'] = rows[0]['MAIL_USE_SSL']
-        app.config['MAIL_USERNAME'] = rows[0]['MAIL_USERNAME']
-        app.config['MAIL_PASSWORD'] = rows[0]['MAIL_PASSWORD']
-        mail = Mail(app)
-    print("**************************initialize mail configration********************************")
+    initilizeMail()
 
 class initial :
     def __init__ (self):
-        global db;
-
+        global db
+        global mail
 
 @app.after_request
 def after_request(response):
@@ -169,11 +160,13 @@ def login():
 
 
 @app.route("/listmeal", methods=["GET", "POST"])
+@login_required
 def listmeal():
         return render_template("master.html", meals =getAllMealsAfterToday() , communities = getCommunities())
 
 
 @app.route("/participant", methods=["GET", "POST"])
+@login_required
 def participant():
         # print(request.args)
         mealId = request.args.get("mealId")
@@ -182,6 +175,7 @@ def participant():
 
 
 @app.route("/addsug", methods=["GET", "POST"])
+@login_required
 def addsug():
    if request.method == "POST":
        mealName = request.form.get("name")
@@ -376,6 +370,7 @@ def addrecord():
 
 
 @app.route("/configer", methods=["GET", "POST"])
+@login_required
 def configer():
     """configer user"""
 

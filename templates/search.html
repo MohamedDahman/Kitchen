@@ -18,23 +18,7 @@
 		<script type="text/javascript" src="./static/script.js"></script>
         <script type="text/javascript" src="./static/searchScript.js"></script>
 	</head>
-	    <body onload="dateChangeValue(datechoice.value)">
 
-		<text id="idd"> </text>
-	    	<script type="text/javascript" src="">
-	    			    	export function dateFormatter(date, country) {
-							  var day = this.date.getDate();
-							var month = this.date.getMonth();
-						var year = this.date.getFullYear();
-
-  if (country == 'at') {
-    return day + "." + month + "." + year
-    // '01.02.2017 12:05'
-  }
-	document.getElementById("idd").text = dateFormatter("19-12-2009","at")
-	    			    	}
-
-	    	</script>
 		<div id="art-page-background-glare">
 			<div id="art-page-background-glare-image">
 				<div id="art-main">
@@ -53,10 +37,12 @@
 								<div class="l"></div>
 								<div class="r"></div>
 								<ul class="art-menu">
-						<li><a href="/"></a> <span class="active"><span class="l"> </span><span class="r"> </span><span class="t">Home</span></a></li>
+						<li><a href="/"><span class="l"> </span><span class="r"> </span><span class="t">Home</span></a></li>
 						<li><a href="/addsug"><span class="l"> </span><span class="r"> </span><span class="t">Suggesions</span></a></li>
 						<li><a href="/units"><span class="l"> </span><span class="r"> </span><span class="t">History</span></a></li>
-						<li><a href="/about-us.html"><span class="l"> </span><span class="r"> </span><span class="t">About us</span></a></li>
+						<li><a href="/about"><span class="l"> </span><span class="r"> </span><span class="t">About us</span></a></li>
+						<li><a href="/logout"><span class="l"> </span><span class="r"> </span><span class="t">Log out</span></a></li>
+
 						</ul>
 						</div>
 
