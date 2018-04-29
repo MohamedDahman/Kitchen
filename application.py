@@ -51,7 +51,7 @@ def _run_on_start():
     print("**************************initialize mail configration********************************")
 
 class initial :
-    def __init__ (Self):
+    def __init__ (self):
         global db;
 
 
@@ -202,7 +202,7 @@ def addsug():
        newfilename = UPLOAD_FOLDER+"/"+str(maxId) +".jpg"
        os.rename(f,newfilename)
 
-       #sendMailInvitation(mealId, mealName, mealDes , mealDate)
+       sendMailInvitation(mealId, mealName, mealDes , mealDate ,newfilename)
 
        return render_template("materialdetails.html",units = getUnits() ,mealid=maxId, mealName=mealName,mealDes=mealDes,mealDate=mealDate,cook=getOwner(mealId))
    else:
@@ -372,12 +372,7 @@ def addrecord():
         meal = getMeal(mealid)
         addmealsDetails(mealid,material,quntity,unit)
 
-        mealDetails = db.execute("select * from  mealsDetails where mealId = :mealId ", mealId = mealid)
-
-
-        print("-----------------------------------------------")
-
-        return render_template("materialdetails.html",units = getUnits() ,materials=mealDetails,mealid=mealid, mealName=meal["name"],meailmealDes=meal["description"],mealDate=meal["date"],cook=getOwner(mealid))
+        return render_template("materialdetails.html",units = getUnits() ,materials=getMealDetails(mealid),mealid=mealid, mealName=meal["name"],meailmealDes=meal["description"],mealDate=meal["date"],cook=getOwner(mealid))
 
 
 @app.route("/configer", methods=["GET", "POST"])

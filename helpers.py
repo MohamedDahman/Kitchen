@@ -24,10 +24,13 @@ cron = Scheduler(daemon=True)
 # Explicitly kick off the background thread
 if os.environ.get('WERKZEUG_RUN_MAIN') != 'true':
     cron.start()
-#app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-#app.config['MAIL_PORT'] = 465
-#app.config['MAIL_USE_SSL'] = True
-#app.config['MAIL_USERNAME'] = 'mhddahman@gmail.com
+
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_USERNAME'] = 'refugeecodekitchen@gmail.com'
+app.config['MAIL_PASSWORD'] = 'nehctikeegufer'
+
 mail = Mail(app)
 
 def login_required(f):
@@ -161,12 +164,16 @@ def addmealsDetails(mealId , material , quntity, unit):
     return meal
 
 def getMaxMealId():
-    mealId = application.db.execute("select max(id) as maxId from meals")
-    maxId = mealId[0]["maxId"]
+    mealId = application.db.execute("select max(id) as maxId, count(*) as counts from meals")
+    if (mealId[0]["counts"]==0) :
+        maxId = 0
+    else:
+        maxId = mealId[0]["maxId"]
+
     return maxId
 
 
-def sendMailInvitation(mealId, mealName, mealDes , mealDate):
+def sendMailInvitation(mealId, mealName, mealDes , mealDate , newfilename):
        cook_user = getOwner(mealId)
        users = application.db.execute("SELECT * FROM users")
        a_users =[]
@@ -175,9 +182,9 @@ def sendMailInvitation(mealId, mealName, mealDes , mealDate):
            allUsers = str(users[i]['eMail'])
            print(allUsers)
            with mail.connect() as conn:
-               message = render_template("sug_email.html",mealName=mealName,mealDes=mealDes,mealDate=mealDate,cook=cook_user[0]['username'],newfilename=newfilename)
+               message = render_template("sug_email.html",mealName=mealName,mealDes=mealDes,mealDate=mealDate,cook=cook_user,newfilename=newfilename)
                subject = "hello, %s" % "all"
-               msg = Message(sender='it.diaaa@gmail.com',recipients=[allUsers], html=message,subject=subject)
+               msg = Message(sender='refugeecodekitchen@gmail.com',recipients=[allUsers], html=message,subject=subject)
                mail.send(msg)
 
 def getMealNotRatet(userId):
@@ -198,3 +205,8 @@ def getMealNotRatet(userId):
             currentRow = currentRow + 1
 
     return listRowData
+
+
+def getMealDetails(mealId):
+    mealDetails = application.db.execute("select m.id,material,mealId,quntity,unit,description from  mealsDetails m,units u where mealId = :mealId and m.unit = u.id",mealId = mealId )
+    return mealDetails
