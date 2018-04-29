@@ -154,10 +154,10 @@ def getMeal(mealId):
     return meal[0]
 
 def addmealsDetails(mealId , material , quntity, unit):
-    maxId = application.db.execute("SELECT max(id)+1 as maxvalue from mealsDetails")
-
+    maxId = application.db.execute("SELECT max(id) as maxvalue from mealsDetails")
+    maxIdValue = maxId[0]["maxvalue"]
     meal = application.db.execute("INSERT INTO mealsDetails (id ,mealId,material,quntity,unit) VALUES (:id1 ,:mealId,:material,:quntity,:unit)",
-                                id1 = 1 ,mealId = mealId ,material=material,quntity=1 ,unit=1)
+                                id1 = maxIdValue+1 ,mealId = mealId ,material=material,quntity=quntity ,unit=unit)
     return meal
 
 def getMaxMealId():

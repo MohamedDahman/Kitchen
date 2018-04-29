@@ -371,8 +371,13 @@ def addrecord():
         print(unit)
         meal = getMeal(mealid)
         addmealsDetails(mealid,material,quntity,unit)
+
+        mealDetails = db.execute("select * from  mealsDetails where mealId = :mealId ", mealId = mealid)
+
+
         print("-----------------------------------------------")
-        return render_template("materialdetails.html",units = getUnits() ,mealid=mealid, mealName=meal["name"],meailmealDes=meal["description"],mealDate=meal["date"],cook=getOwner(mealid))
+
+        return render_template("materialdetails.html",units = getUnits() ,materials=mealDetails,mealid=mealid, mealName=meal["name"],meailmealDes=meal["description"],mealDate=meal["date"],cook=getOwner(mealid))
 
 
 @app.route("/configer", methods=["GET", "POST"])
