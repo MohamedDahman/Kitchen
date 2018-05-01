@@ -65,6 +65,7 @@ Session(app)
 
 
 @app.route("/searchMealName")
+@login_required
 def searchMealName():
     """Search for places that match query """
 
@@ -90,12 +91,14 @@ def search():
         return render_template("search.html", meals=getMealNotRatet(session["user_id"]))
 
 @app.route("/addRate", methods=["GET", "POST"])
+@login_required
 def addRate():
     if request.method == "GET":
         return render_template("addRate.html", meals=getMealNotRatet(session["user_id"]))
 
 
 @app.route("/ratingMeal", methods=["GET", "POST"])
+@login_required
 def ratingMeal():
     #if request.method == "GET":
         return render_template("rating1.html")

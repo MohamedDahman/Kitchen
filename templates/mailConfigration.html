@@ -12,21 +12,55 @@
 
 	</head>
 	<body>
-			<div id="art-page-background-glare">
+		<div id="art-page-background-glare">
 			<div id="art-page-background-glare-image">
 				<div id="art-main">
 					<div class="art-sheet">
+						<div class="art-sheet-tl"></div>
+						<div class="art-sheet-tr"></div>
+						<div class="art-sheet-bl"></div>
+						<div class="art-sheet-br"></div>
+						<div class="art-sheet-tc"></div>
+						<div class="art-sheet-bc"></div>
+						<div class="art-sheet-cl"></div>
+						<div class="art-sheet-cr"></div>
+						<div class="art-sheet-cc"></div>
+						<div class="art-sheet-body">
+							<div class="art-nav">
+								<div class="l"></div>
+								<div class="r"></div>
+								<ul class="art-menu">
+						<li><a href="/"><span class="l"> </span><span class="r"> </span><span class="t">Home</span></a></li>
+						<li><a href="/addsug"><span class="l"> </span><span class="r"> </span><span class="t">Suggesions</span></a></li>
+						<li><a href="/listmeal"><span class="l"> </span><span class="r"> </span><span class="t">Meal List</span></a></li>
+						<li><a href="/about"><span class="l"> </span><span class="r"> </span><span class="t">About us</span></a></li>
+						<li><a href="/logout"><span class="l"> </span><span class="r"> </span><span class="t">Log out</span></a></li>
 
-  <div class="login-page">
-  <div class="form">
+						</ul>
+						</div>
+								<form class="login-form" acion="/configer" method="post">
 
-    <form class="login-form" acion="/configer" method="post">
-    	<input type="text" name="MailServer" placeholder="Mail Server" value ="{{Mail_Server}}" />
-    	<input type="integers" name="MailPort" placeholder="Mail Port"  value ="{{Mail_Port}}"/>
-    	<input type="integers" name="MailUseSsl" placeholder="MAIL USE SSL" value ="{{Mail_Use_Ssl}}"/>
-    	<input type="text" name="MailUsername" placeholder="Mail Username" value ="{{Mail_Username}}"/>
-      <input type="password" name="MailPassword" placeholder="Mail Password" value ="{{Mail_Password}}"/>
-      <button class="btn btn-primary" type="submit">Configer</button>
+                <table class="table table-striped" style="width:100%">
+ 								<tr>
+ 									<td>Mail Server</td>
+ 									<td>Mail Port</td>
+ 									<td>MAIL USE SSL</td>
+									<td>Mail User Name</td>
+									<td>Mail Password</td>
+
+ 								</tr>
+ 								<tr>
+ 									<td><input type="text" style="width:250PX;" name="MailServer" placeholder="Mail Server" value ="{{Mail_Server}}"   /></td>
+ 									<td><input type="text" style="width:100PX;" name="MailPort" placeholder="Mail Port"  value ="{{Mail_Port}}"  style="width:10" /></td>
+ 									<td><input type="text" style="width:100PX;" name="MailUseSsl" placeholder="MAIL USE SSL" value ="{{Mail_Use_Ssl}}" style="width:10" /></td>
+ 									<td><input type="text" style="width:250PX;" name="MailUsername" placeholder="Mail Username" value ="{{Mail_Username}}"/></td>
+ 									<td><input type="password" style="width:250PX;" name="MailPassword" placeholder="Mail Password" value ="{{Mail_Password}}"/></td>
+ 								</tr>
+ 								<tr style="Height:50PX;">
+ 									<td colspan=5 align=center><button class="btn btn-primary" type="submit">Configer</button></td>
+ 								</tr>
+
+						</table>
 
     </form>
 
@@ -38,10 +72,5 @@
 		</div>
      </div>
 			</div>
-
-		</div>
-				</div>
-			</div>
-		</div>
 	</body>
 </html>
