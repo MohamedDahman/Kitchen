@@ -16,7 +16,7 @@
 		<script type="text/javascript" src="./static/script1.js"></script>
 		<script type="text/javascript" src="./static/script.js"></script>
 		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-		<script src="./static/emotion-ratings.js"></script>
+	<script src="./static/emotion-ratings.js"></script>
 
 <style>
 body { color:#fff; font-family:'Roboto'; text-align:center;}
@@ -25,6 +25,10 @@ h1 { margin-bottom:100px;}
 </style>
 	</head>
 	<body>
+<!---->
+
+
+		<input type="text" id="mealid" name="mealid"  value ={{meilId}} hidden=true >
 		<div id="art-page-background-glare">
 			<div id="art-page-background-glare-image">
 				<div id="art-main">
@@ -59,9 +63,9 @@ h1 { margin-bottom:100px;}
 				<td  align="left"><div class="art-vmenublockheader"><h3 class="t" style="color:#6495ED ; font-weight: bold; font-size: 15px;">Cooker</h3></div></td>
 			</tr>
 			<tr>
-				<td align="left"><div class="art-vmenublockheader" ><h3 class="t"  style="font-size: 15px" >Pizza</h3></div></td>
-				<td align="left"><div class="art-vmenublockheader"><h3 class="t"  style="font-size: 15px">10-01-2018</h3></div></td>
-			  	<td colspan=3 align="left" ><div class="art-vmenublockheader"><h3 class="t" style="font-size: 15px">Mohammad</h3></div></td>
+				<td align="left"><div class="art-vmenublockheader" ><h3 class="t"  style="font-size: 15px" >{{ mealname }}</h3></div></td>
+				<td align="left"><div class="art-vmenublockheader"><h3 class="t"  style="font-size: 15px">{{ mealdate }}</h3></div></td>
+			  	<td colspan=3 align="left" ><div class="art-vmenublockheader"><h3 class="t" style="font-size: 15px">{{ mealcooker }}</h3></div></td>
 			</tr>
 			<tr>
 				<td colspan=3>
@@ -80,6 +84,7 @@ h1 { margin-bottom:100px;}
         </tr>
         <tr><td colspan=2><form class="login-form" acion="/rating" method="post"><button class="btn btn-primary" type="submit">Add Comment</button></form></td></tr>
         </table>
+
 </div>
 </div>
 </div>
