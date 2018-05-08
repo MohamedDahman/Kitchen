@@ -96,15 +96,23 @@ def addRate():
     if request.method == "GET":
         return render_template("addRate.html", meals=getMealNotRatet(session["user_id"]))
 
-
 @app.route("/ratingMeal", methods=["GET", "POST"])
 @login_required
 def ratingMeal():
-    #if request.method == "GET":
-        return render_template("rating1.html")
+            meailId = request.form.get("addRate")
+            rows = db.execute("select * from Meals where id= :mealId ", mealId= meailId);
+            return render_template("rating1.html",mealname=rows[0]['name'], mealdate = rows[0]['date'],mealcooker =getOwner(meailId),meilId=meailId)
+
 
         #first_name = request.form.get("firstName")
         #last_name = request.form.get("lastName")
+
+@app.route("/rating", methods=["GET", "POST"])
+@login_required
+def ratingMealone():
+        meailId = request.form.get("rating")
+        return redirect("/")
+
 
 
 @app.route("/logout")
