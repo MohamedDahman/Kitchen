@@ -47,14 +47,19 @@
 						</ul>
 						</div>
 
+                  <form acion="/search" method="post">
                         <table class="table table-striped" style="width:100%">
                          <tr style="height:3px">
                             <td>Meal Name</td>
                             <td colspan=4><input type="text" id="q" name="q" style="width:500px;" placeholder="Name of the Meal.."></td>
                             <td rowspan=3 valign=center><input type="submit" value="search"></td>
-
-                         </tr>
-                         <tr>
+                            {% for oneMeal in searchingRows %}
+                            <td>{{ oneMeal.name }}</td>
+              				<td>{{ oneMeal.	description}}</td>
+              				<td>{{ oneMeal.date }}</td>
+                            {% endfor %}
+						</form>
+						<tr>
                             <td><div class="art-vmenublockheader"><h3 class="t">Cooker</h3></div></td>
                             <td colspan=4><input type="text" id="coocker" name="coocker" style="width:500px;" placeholder="Cooker"></td>
                          </tr>

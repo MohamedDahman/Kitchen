@@ -89,6 +89,14 @@ def index():
 def search():
     if request.method == "GET":
         return render_template("search.html", meals=getMealNotRatet(session["user_id"]))
+    else:
+        mealName=request.form.get("q")
+        searchingRows = db.execute("SELECT * FROM meals WHERE name like :mealName",
+                          mealName=mealName + "%")
+        ownername= db.execute("SELECT * FROM users WHERE id=:name",name = searchingRows[0]["userId"])
+
+     #   print(searchingRows)
+        return render_template("searched.html",searchingRows=searchingRows,ownername =ownername[0]["username"],communities = getCommunities())
 
 @app.route("/addRate", methods=["GET", "POST"])
 @login_required
@@ -432,4 +440,3 @@ def configer():
             return render_template("mailConfigration.html", Mail_Server = rows[0]["MAIL_SERVER"] ,  Mail_Port = rows[0]["MAIL_PORT"], Mail_Use_Ssl = rows[0]["MAIL_USE_SSL"] , Mail_Username = rows[0]["MAIL_USERNAME"] , Mail_Password = rows[0]["MAIL_PASSWORD"])
         else:
             return render_template("mailConfigration.html", Mail_Server = "" ,  Mail_Port = "" , Mail_Use_Ssl = "" , Mail_Username = "" , Mail_Password = "")
-
