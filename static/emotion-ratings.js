@@ -11,7 +11,7 @@
  * License: MIT
  */
 
-;(function($, document, window, undefined) {
+(function($, document, window, undefined) {
     // Optional, but considered best practice by some
     "use strict";
 
@@ -32,7 +32,7 @@
     var emotionsArray = {
           angry: "&#x1F620;",
           disappointed: "&#x1F61E;",
-          meh: "&#x1F610;", 
+          meh: "&#x1F610;",
           happy: "&#x1F60A;",
           smile: "&#x1F603;",
           wink: "&#x1F609;",
@@ -46,7 +46,7 @@
     // var colorsArray = {
     //     gold: "#d0a658;",
     //     red: "#cb2a2a;",
-    //     blue: "#337ab7;", 
+    //     blue: "#337ab7;",
     //     green: "#26bf78;",
     //     black: "#00000;",
     //     brown: "#916a3a;",
@@ -74,7 +74,7 @@
         this.opts     = $.extend(this._defaults, options, meta);
         this.init();
     }
-    
+
     //Avoiding conflicts with prototype
     $.extend(Plugin.prototype = {
         // Public functions accessible to users
@@ -84,7 +84,7 @@
             $element = $(this.element);
             this.count = 0;
             this.emotionStyle();
-            this.renderEmotion();            
+            this.renderEmotion();
             this.manageHover();
             this.manageClick();
         },
@@ -118,7 +118,7 @@
         showEmotion: function(count) {
             this.clearEmotion(this.settings.bgEmotion);
             var emotion = getEmotion(this.settings.emotions,count);
-            for (var i = 0; i < count; i++) {                
+            for (var i = 0; i < count; i++) {
                 $element.find(".emotion-style").eq(i).css("opacity", 1);
                 $element.find(".emotion-style").eq(i).html(emotion);
             }
@@ -161,10 +161,10 @@
                     self.settings.onUpdate.call(self, count);
                 }
             });
-        },        
+        },
         appendInput: function(count) {
-            var _input = "<input type='hidden' class='emoji-rating'" + 
-                    " name='" + this.settings.inputName + 
+            var _input = "<input type='hidden' class='emoji-rating'" +
+                    " name='" + this.settings.inputName +
                     "' value='" + count + "' />";
 
             $element.append(_input);

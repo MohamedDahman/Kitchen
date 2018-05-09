@@ -89,6 +89,14 @@ def index():
 def search():
     if request.method == "GET":
         return render_template("search.html", meals=getMealNotRatet(session["user_id"]))
+    else:
+        mealName=request.form.get("q")
+        searchingRows = db.execute("SELECT * FROM meals WHERE name like :mealName",
+                          mealName=mealName + "%")
+        ownername= db.execute("SELECT * FROM users WHERE id=:name",name = searchingRows[0]["userId"])
+
+     #   print(searchingRows)
+        return render_template("searched.html",searchingRows=searchingRows,ownername =ownername[0]["username"],communities = getCommunities())
 
 @app.route("/addRate", methods=["GET", "POST"])
 @login_required
@@ -96,15 +104,23 @@ def addRate():
     if request.method == "GET":
         return render_template("addRate.html", meals=getMealNotRatet(session["user_id"]))
 
-
 @app.route("/ratingMeal", methods=["GET", "POST"])
 @login_required
 def ratingMeal():
-    #if request.method == "GET":
-        return render_template("rating1.html")
+            meailId = request.form.get("addRate")
+            rows = db.execute("select * from Meals where id= :mealId ", mealId= meailId);
+            return render_template("rating1.html",mealname=rows[0]['name'], mealdate = rows[0]['date'],mealcooker =getOwner(meailId),meilId=meailId)
+
 
         #first_name = request.form.get("firstName")
         #last_name = request.form.get("lastName")
+
+@app.route("/rating", methods=["GET", "POST"])
+@login_required
+def ratingMealone():
+        meailId = request.form.get("rating")
+        return redirect("/")
+
 
 
 @app.route("/logout")
@@ -424,4 +440,3 @@ def configer():
             return render_template("mailConfigration.html", Mail_Server = rows[0]["MAIL_SERVER"] ,  Mail_Port = rows[0]["MAIL_PORT"], Mail_Use_Ssl = rows[0]["MAIL_USE_SSL"] , Mail_Username = rows[0]["MAIL_USERNAME"] , Mail_Password = rows[0]["MAIL_PASSWORD"])
         else:
             return render_template("mailConfigration.html", Mail_Server = "" ,  Mail_Port = "" , Mail_Use_Ssl = "" , Mail_Username = "" , Mail_Password = "")
-

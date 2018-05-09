@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US" xml:lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+
+
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet"/>
+
+
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+
+
+		<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+		<title>Kitchen Application</title>
+		<link rel="stylesheet" href="././static/style.css" type="text/css" media="screen" />
+		<!--[if IE 6]><link rel="stylesheet" href="./style.ie6.css" type="text/css" media="screen" /><![endif]-->
+		<!--[if IE 7]><link rel="stylesheet" href="./style.ie7.css" type="text/css" media="screen" /><![endif]-->
+		<script type="text/javascript" src="./static/jquery.js"></script>
+		<script type="text/javascript" src="./static/script1.js"></script>
+		<script type="text/javascript" src="./static/script.js"></script>
+
+	</head>
+	<body>
+		<div id="art-page-background-glare">
+			<div id="art-page-background-glare-image">
+				<div id="art-main">
+					<div class="art-sheet">
+						<div class="art-sheet-tl"></div>
+						<div class="art-sheet-tr"></div>
+						<div class="art-sheet-bl"></div>
+						<div class="art-sheet-br"></div>
+						<div class="art-sheet-tc"></div>
+						<div class="art-sheet-bc"></div>
+						<div class="art-sheet-cl"></div>
+						<div class="art-sheet-cr"></div>
+						<div class="art-sheet-cc"></div>
+						<div class="art-sheet-body">
+							<div class="art-nav">
+								<div class="l"></div>
+								<div class="r"></div>
+								<ul class="art-menu">
+
+						<li><a href="/"><span class="l"> </span><span class="r"> </span><span class="t">Home</span></a></li>
+						<li><a href="/addsug"><span class="l"> </span><span class="r"> </span><span class="t">Suggesions</span></a></li>
+						<li><a href="/listmeal"><span class="l"> </span><span class="r"> </span><span class="t">Meal List</span></a></li>
+						<li><a href="/search"><span class="l"> </span><span class="r"> </span><span class="t">search</span></a></li>
+						<li><a href="/about"><span class="l"> </span><span class="r"> </span><span class="t">About us</span></a></li>
+						<li><a href="/logout"><span class="l"> </span><span class="r"> </span><span class="t">Log out</span></a></li>
+
+            </ul>
+						</div>
+
+    <table class="table table-striped" style="width:100%">
+      <!--tr>
+        <th width="45%"><div class="art-vmenublockheader"><h3 class="t">Data</h3></div></th>
+        <th width="15%"><div class="art-vmenublockheader"><h3 class="t">Participate Type</h3></div></th>
+        <th width="40%"><div class="art-vmenublockheader"><h3 class="t">Image</h3></div></th>
+      </tr-->
+    {% for oneMeal in searchingRows %}
+      <tr>
+        <td>
+                    <table >
+                      <tr >
+                        <td><div class="art-vmenublockheader"><h3 class="t">Name</h3></div></td>
+                        <td><div class="art-vmenublockheader"><h3 class="t">{{ oneMeal.name }}</h3></div></td>
+                      </tr>
+                      <tr>
+                        <td><div class="art-vmenublockheader"><h3 class="t">Suggestion Owner</h3></div></td>
+                        <td width="180"><div class="art-vmenublockheader"><h3 class="t">{{ ownername }}</h3></div></td>
+                      </tr>
+                       <tr>
+                        <td><div class="art-vmenublockheader"><h3 class="t">description</h3></div></td>
+                        <td width="180"><div class="art-vmenublockheader"><h3 class="t">{{ oneMeal.	description }}</h3></div></td>
+                      </tr>
+                      <tr>
+                        <td><div class="art-vmenublockheader"><h3 class="t">Date</h3></div></td>
+                        <td width="180"><div class="art-vmenublockheader"><h3 class="t">{{ oneMeal.date }}</h3></div></td>
+                      </tr>
+                      </td>
+                      </table >
+      </td>
+      <td>
+                <table>
+                      {% if isParticipant != 0 %}
+                      <tr>
+                      <td>
+                          <form method="POST" action="/addComunity">
+                          <select class="form-control" name="community">
+                            {% for community in communities %}
+                              <option value="{{ community.id }}">{{ community.description }}</option>
+                            {% endfor %}
+                      </td>
+                      </tr>
+                      {% endif %}
+                      <tr>
+                      <td>
+                        {% if isParticipant != 0 %}
+                        <div class="form-group">
+                        <button class="btn btn-primary"  name="addComunity" value={{oneMeal.id}} type="submit"><div class="art-vmenublockheader"><h3 class="t">add me</h3></div></button>
+                        </div>
+                        </form>
+                        {% endif %}
+                        {% if isParticipant == 0 %}
+                        <form method="POST" action="/removeParticipate">
+                        <div class="form-group">
+                        <button class="btn btn-primary"  name="removeComunity" value={{oneMeal.id}} type="submit"><div class="art-vmenublockheader"><h3 class="t">remove me</h3></div></button>
+                        </div>
+                        </form>
+                        {% endif %}
+                    </td>
+                  </tr>
+
+      </table>
+      </td>
+          <td><img src="/static/{{oneMeal.id}}.jpg"  alt="{{image}}" style="width:150px; height:150px"></td>
+
+      </tr>
+      <tr><td colspan=3><div class="art-vmenublockheader"><h3 class="t">Participate List</h3></div></td></tr>
+      <tr>
+
+      <td colspan=3>
+        <span id="divParticipat{{oneMeal.id}}"></span>
+             <input class="form-control" name="mealidtext{{oneMeal.id}}" id="mealidtext{{oneMeal.id}}" value="{{oneMeal.id}}"  type="text"  hidden />
+             <script>
+
+                buildmealParticipant(document.getElementById("mealidtext{{oneMeal.id}}").value);
+            </script>
+
+      </td>
+      </tr>
+
+
+    {% endfor %}
+
+    </table>
+				</div>
+			</div>
+		</div>
+		</div>
+            </div>
+            </div>
+
+	</body>
+</html>

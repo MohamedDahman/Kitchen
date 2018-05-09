@@ -58,11 +58,16 @@
                               <td><div class="art-vmenublockheader"><h3 class="t">{{ meal.name }}</h3></div></td>
                               <td><div class="art-vmenublockheader"><h3 class="t">{{ meal.date }}</h3></div></td>
                               <td><div class="art-vmenublockheader"><h3 class="t">{{ meal.cooker }}</h3></div></td>
-                              <td>
-                                <div class="form-group">
-                                <button class="btn btn-primary orange"  class="orange" name="addRate" value={{meal.id}} type="submit"><div class="art-vmenublockheader"><h3 class="t">Rate me</h3></div></button>
+                              
+                                <td>
+                             
+                                  <div class="form-group">
+
+                                <button class="btn btn-primary"   name="addRate" value={{meal.id}} type="submit"><div class="art-vmenublockheader"><h3 class="t">Rate me</h3></div></button>
+                               
                                 </div>
-                              </td>
+                              
+                                </td>
                               </form>
                           </tr>
                         {% endfor %}
