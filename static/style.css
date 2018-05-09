@@ -241,6 +241,8 @@ input[type="submit"] {
   text-transform: uppercase;
   transition: 0.1s ease;
   cursor: pointer;
+  color: black !important;
+  background: orange !important;
 }
 
 input[type="submit"]:hover,
@@ -1097,6 +1099,7 @@ div.art-logo
   left: 10px;
   top: 155px;
   width: 314px;
+  margin-left: 90px;
 }
 
 h1.art-logo-name
@@ -1209,10 +1212,12 @@ h2.art-logo-text
 
 .art-vmenublockheader h3.t
 {
-  margin:0;
+  margin-left: 14px;
   padding: 0 10px 0 10px;
   white-space: nowrap;
   line-height: 33px;
+  color:black ;
+
 }
 
 /* end BlockHeader, VMenuBlockHeader */
@@ -1670,6 +1675,8 @@ input, select, textarea
   vertical-align: middle;
   font-family: Tahoma, Arial, Helvetica, Sans-Serif;
   font-size: 13px;
+  width: 153px !important;
+
 }
 
 .art-block select
