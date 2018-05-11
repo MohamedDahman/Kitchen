@@ -1,4 +1,4 @@
-##Kitchen Service App##
+## Kitchen Service App ##
 
 Purpose: Let’s cook together, the easier way.
 
@@ -33,3 +33,5 @@ Diaa Alkhatib           https://github.com/diaaaaaa,
 Farah Alrubaye       https://github.com/Farah7Tawfeek,
 
 Ismael Alhussein Alali     https://github.com/ismael1987.
+
+this project was part of the CS50 course that we did.
