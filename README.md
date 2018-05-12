@@ -1,3 +1,5 @@
+## this project was part of the CS50 course that we did.
+
 ## Kitchen Service App ##
 
 Purpose: Let’s cook together, the easier way.
@@ -18,7 +20,9 @@ What’s the problem: Sharing food has a connecting function. But cooking takes 
 
 
 ## Technology Stack:
-Flask, JavaScript, Jinja, …
+Python , Flask, JavaScript, Jinja, sqlite
+pip install apscheduler==2.1.2
+pip install apscheduler
 
 ## Our team: 
 
@@ -34,4 +38,3 @@ Flask, JavaScript, Jinja, …
 
 * Ismael Alhussein Alali     https://github.com/ismael1987.
 
-# this project was part of the CS50 course that we did.
