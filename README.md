@@ -18,9 +18,9 @@ What’s the problem: Sharing food has a connecting function. But cooking takes 
 
 
 ## Technology Stack:
-Python , Flask, JavaScript, Jinja, sqlite
-pip install apscheduler==2.1.2
-pip install apscheduler
+ * Python , Flask, JavaScript, Jinja, sqlite
+ * pip install apscheduler==2.1.2
+ * pip install apscheduler
 
 ## Our team: 
 
