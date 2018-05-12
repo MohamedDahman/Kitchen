@@ -1,5 +1,3 @@
-## this project was part of the CS50 course that we did.
-
 ## Kitchen Service App ##
 
 Purpose: Let’s cook together, the easier way.
@@ -37,4 +35,7 @@ pip install apscheduler
 * Farah Alrubaye       https://github.com/Farah7Tawfeek,
 
 * Ismael Alhussein Alali     https://github.com/ismael1987.
+
+## This project was Part of the CS50 course that we did.
+
 
